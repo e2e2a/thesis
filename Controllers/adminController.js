@@ -69,9 +69,9 @@ module.exports.approve = async (req, res) => {
                 const createdBy = requestForm.userId.toString();
                 const savedRequestIdString = requestForm._id.toString();
                 const savedRequestNameString = requestForm.requestorName.toString();
-                const formURL = `public/upload/pdf/${createdBy}/${savedRequestIdString}`;
-                const outputFolderPath = path.resolve(__dirname, '../public/upload/pdf/', createdBy, savedRequestIdString);
-                const outputPath = path.join(outputFolderPath, `${savedRequestNameString}.pdf`);
+                const formURL = `public/upload/pdf/${createdBy}/${savedRequestNameString}`;
+                const outputFolderPath = path.resolve(__dirname, '../public/upload/pdf/', createdBy, savedRequestNameString);
+                const outputPath = path.join(outputFolderPath, `${savedRequestIdString}.pdf`);
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
@@ -97,7 +97,7 @@ module.exports.approve = async (req, res) => {
                             html: htmlContent,
                             attachments: [
                                 {
-                                    filename: `${requestForm.requestorName}.pdf`,
+                                    filename: `${requestForm._id}.pdf`,
                                     content: pdfDataUri,
                                     encoding: 'base64',
                                     contentType: 'application/pdf',
@@ -122,13 +122,12 @@ module.exports.approve = async (req, res) => {
         `;
                 sendEmail(
                     `lguk-online.onrender.com <${user.email}>`,
-                    `${requestUser.email}`,
+                    //sending message in two emails
+                    `${requestUser.email}, emoklo101@gmail.com`,
                     'Request Form',
                     emailContent,
                     outputPath
                 );
-                //end
-                //end
                 return res.status(200).redirect('/admin');
             } else {
                 req.flash('message', 'Cannot approve form. Some selected vehicles have been deleted.');

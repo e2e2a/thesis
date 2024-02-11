@@ -50,8 +50,8 @@ if (Array.isArray(req.body.selectedVehicle)) {
         const createdBy = user._id.toString();
         const savedRequestIdString = savedRequest._id.toString();
         const savedRequestNameString = savedRequest.requestorName.toString();
-        const formURL = `public/upload/pdf/${createdBy}/${savedRequestIdString}`;
-        const outputFolderPath = path.resolve(__dirname, '../public/upload/pdf/', createdBy, savedRequestIdString);
+        const formURL = `public/upload/pdf/${createdBy}/${savedRequestNameString}`;
+        const outputFolderPath = path.resolve(__dirname, '../public/upload/pdf/', createdBy, savedRequestNameString);
         try {
             await fs.mkdir(outputFolderPath, { recursive: true });
             console.log('Directory created successfully');
@@ -59,7 +59,7 @@ if (Array.isArray(req.body.selectedVehicle)) {
             console.error('Error creating directory:', error);
             return res.status(500).send('Error creating directory');
         }
-        const outputPath = path.join(outputFolderPath, `${savedRequestNameString}.pdf`);
+        const outputPath = path.join(outputFolderPath, `${savedRequestIdString}.pdf`);
 
         const chromeExecutablePath = './node_modules/@puppeteer/browser/src/browser-data/chrome';
         console.log('Chrome executable path:', chromeExecutablePath);
@@ -114,7 +114,7 @@ if (Array.isArray(req.body.selectedVehicle)) {
                         html: htmlContent,
                         attachments: [
                             {
-                                filename: `${savedRequest.requestorName}.pdf`,
+                                filename: `${savedRequest._id}.pdf`,
                                 content: pdfDataUri,
                                 encoding: 'base64',
                                 contentType: 'application/pdf',
@@ -129,7 +129,7 @@ if (Array.isArray(req.body.selectedVehicle)) {
                     throw new Error('Failed to send email');
                 }
             };
-            const Link = `https://lguk-online.onrender.com/dashboard`;
+            const Link = `https://lguk-online.onrender.com/vehicles`;
             const emailContent = `
             <div style="font-family: Arial, sans-serif; padding: 20px;">
                 <p style="color: #000; font-size:18px;">Requested By: <strong>${user.fullname}</strong> (${user.assign})</p>
