@@ -1,8 +1,6 @@
 <% if (user && user.role==='creator' ) { %>
     <%- include('partials/header/header.ejs'); %>
 
-</head>
-
 <body class="animsition">
     <div class="page-wrapper">
         <%- include('partials/nav_bar/nav.ejs'); %>
@@ -310,15 +308,19 @@
                                                 </thead>
                                                 <tbody>
                                                     <!-- request && modal Loop start -->
-                                                    <% if(reqForms && reqForms.length> 0) { %>
-                                                        <% reqForms.forEach(reqForm=> { %>
+                                                    <% if(reqForms && reqForms.length > 0) { %>
+                                                        <% for (let i = 0; i < reqForms.length; i++) { %>
+                                                            <% const reqForm = reqForms[i]; %>
                                                             <% if(reqForm.status === 'approved' || reqForm.status === 'declined') { %>
-                                                            <%- include('partials/request_form/creator_single_form_remove.ejs',
-                                                                {reqForm: reqForm}); %>
-                                                            <% }%>
-                                                        <% }); %>
+                                                                <% const user = users.find(user => user._id.toString() === reqForm.userId.toString()); %>
+                                                                <% if(user) { %>
+                                                                    <!-- Include the partial template -->
+                                                                    <%- include('partials/request_form/creator_single_form_remove.ejs', { reqForm: reqForm, user: user }); %>
+                                                                <% } %>
+                                                            <% } %>
+                                                        <% } %>
                                                     <% } else { %>
-                                                        <p>No request Found.</p>
+                                                        <p>No requests found.</p>
                                                     <% } %>
                                                     <!-- request && modal Loop end -->
                                                 </tbody>
@@ -375,15 +377,19 @@
                                                 </thead>
                                                 <tbody>
                                                     <!-- request && modal Loop start -->
-                                                    <% if(reqForms && reqForms.length> 0) { %>
-                                                        <% reqForms.forEach(reqForm=> { %>
+                                                    <% if(reqForms && reqForms.length > 0) { %>
+                                                        <% for (let i = 0; i < reqForms.length; i++) { %>
+                                                            <% const reqForm = reqForms[i]; %>
                                                             <% if(reqForm.status === 'process') { %>
-                                                            <%- include('partials/request_form/creator_single_form_remove.ejs',
-                                                                {reqForm: reqForm}); %>
-                                                            <% }%>
-                                                        <% }); %>
+                                                                <% const user = users.find(user => user._id.toString() === reqForm.userId.toString()); %>
+                                                                <% if(user) { %>
+                                                                    <!-- Include the partial template -->
+                                                                    <%- include('partials/request_form/creator_single_form_remove.ejs', { reqForm: reqForm, user: user }); %>
+                                                                <% } %>
+                                                            <% } %>
+                                                        <% } %>
                                                     <% } else { %>
-                                                        <p>No request Found.</p>
+                                                        <p>No requests found.</p>
                                                     <% } %>
                                                     <!-- request && modal Loop end -->
                                                 </tbody>
@@ -441,20 +447,21 @@
                                                 </thead>
                                                 <tbody>
                                                     <!-- request && modal Loop start -->
-                                                    <% if (reqForms && reqForms.length > 0) { %>
-                                                        <% let pendingRequestsExist = false; %>
-                                                        <% reqForms.forEach(reqForm => { %>
-                                                            <% if (reqForm.status === 'pending') { %>
-                                                                <%- include('partials/request_form/creator_single_form.ejs', { reqForm: reqForm }); %>
-                                                                <% pendingRequestsExist = true; %>
+                                                    <% if(reqForms && reqForms.length > 0) { %>
+                                                        <% for (let i = 0; i < reqForms.length; i++) { %>
+                                                            <% const reqForm = reqForms[i]; %>
+                                                            <% if(reqForm.status === 'pending') { %>
+                                                                <% const user = users.find(user => user._id.toString() === reqForm.userId.toString()); %>
+                                                                <% if(user) { %>
+                                                                    <!-- Include the partial template -->
+                                                                    <%- include('partials/request_form/creator_single_form.ejs', { reqForm: reqForm, user: user }); %>
+                                                                <% } %>
                                                             <% } %>
-                                                        <% }); %>
-                                                        <% if (!pendingRequestsExist) { %>
-                                                            <p>No Available Request</p>
                                                         <% } %>
                                                     <% } else { %>
-                                                        <p>No Requests Found.</p>
+                                                        <p>No requests found.</p>
                                                     <% } %>
+                                                    
                                                     <!-- request && modal Loop end -->
                                                 </tbody>
                                             </table>

@@ -161,7 +161,11 @@ function activeClass(link) {
                 <div class="account-wrap">
                     <div class="account-item account-item--style2 clearfix js-item-menu">
                         <div class="image">
-                            <img src="images/icon/avatar-01.jpg" alt="<%= user.fullname %>" />
+                            <% if (!user.imageURL) { %>
+                                <img src="public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
+                            <% } else { %>
+                                <img src="<%= user.imageURL %>" alt="<%= user.fullname %>" />
+                            <% } %>
                         </div>
                         <div class="content">
                             <a class="js-acc-btn" href="#"><%= user.fullname %></a>
@@ -169,9 +173,15 @@ function activeClass(link) {
                         <div class="account-dropdown js-dropdown">
                             <div class="info clearfix">
                                 <div class="image">
-                                    <a href="#">
-                                        <img src="images/icon/avatar-01.jpg" alt="<%= user.fullname %>" />
+                                    <% if (!user.imageURL) { %>
+                                    <a href="/profile">
+                                        <img src="public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
                                     </a>
+                                    <% } else { %>
+                                        <a href="/profile">
+                                            <img src="<%= user.imageURL %>" alt="<%= user.fullname %>" />
+                                        </a>
+                                    <% } %>
                                 </div>
                                 <div class="content">
                                     <h5 class="name">
@@ -182,7 +192,7 @@ function activeClass(link) {
                             </div>
                             <div class="account-dropdown__body">
                                 <div class="account-dropdown__item">
-                                    <a href="#">
+                                    <a href="/profile">
                                         <i class="zmdi zmdi-account"></i>Account</a>
                                 </div>
                                 <div class="account-dropdown__item">

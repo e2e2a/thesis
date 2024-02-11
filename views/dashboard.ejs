@@ -1,7 +1,5 @@
 <%- include('partials/header/header.ejs'); %>
 
-    </head>
-
     <body class="animsition">
         <div class="page-wrapper">
             <%- include('partials/nav_bar/nav.ejs'); %>
@@ -181,87 +179,6 @@
 
                         <%- include('partials/card/box.ejs'); %>
 
-                            <!-- STATISTIC CHART-->
-                            <section class="statistic-chart">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h3 class="title-5 m-b-35">statistics</h3>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-4">
-                                            <!-- CHART-->
-                                            <div class="statistic-chart-1">
-                                                <h3 class="title-3 m-b-30">chart</h3>
-                                                <div class="chart-wrap">
-                                                    <canvas id="widgetChart5"></canvas>
-                                                </div>
-                                                <div class="statistic-chart-1-note">
-                                                    <span class="big">10,368</span>
-                                                    <span>/ 16220 items sold</span>
-                                                </div>
-                                            </div>
-                                            <!-- END CHART-->
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <!-- TOP CAMPAIGN-->
-                                            <div class="top-campaign">
-                                                <h3 class="title-3 m-b-30">top campaigns</h3>
-                                                <div class="table-responsive">
-                                                    <table class="table table-top-campaign">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1. Australia</td>
-                                                                <td>$70,261.65</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2. United Kingdom</td>
-                                                                <td>$46,399.22</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3. Turkey</td>
-                                                                <td>$35,364.90</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>4. Germany</td>
-                                                                <td>$20,366.96</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>5. France</td>
-                                                                <td>$10,366.96</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <!-- END TOP CAMPAIGN-->
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <!-- CHART PERCENT-->
-                                            <div class="chart-percent-2">
-                                                <h3 class="title-3 m-b-30">chart by %</h3>
-                                                <div class="chart-wrap">
-                                                    <canvas id="percent-chart2"></canvas>
-                                                </div>
-                                                <div class="chart-info">
-                                                    <div class="chart-note">
-                                                        <span class="dot dot--green"></span>
-                                                        <span>Approved</span>
-                                                    </div>
-                                                    <div class="chart-note">
-                                                        <span class="dot dot--red"></span>
-                                                        <span>Denied</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- END CHART PERCENT-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- END STATISTIC CHART-->
-                            
                                 <!-- User Data -->
                                 <div class="container">
                                     <div class="row">
@@ -290,10 +207,8 @@
                                                             </select>
                                                             <div class="dropDownSelect2"></div>
                                                         </div>
-                                                        <div class="btn-group d-flex">
-                                                            <button class="btn btn-success">+ Add</button>
-                                                            <button class="btn btn-danger"><i
-                                                                    class="zmdi zmdi-delete"></i></button>
+                                                        <div class="d-flex">
+                                                            <button class="btn btn-success">+ Add User</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -301,11 +216,11 @@
                                                     <table class="table table-earning">
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
                                                                 <th>name</th>
+                                                                <th>assign</th>
                                                                 <th>contact</th>
                                                                 <th>role</th>
-                                                                <th>type</th>
+                                                                <th>address</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
@@ -313,13 +228,12 @@
                                                             <!-- Users Loop -->
                                                             <% if(users && users.length> 0) { %>
                                                                 <% users.forEach(user=> { %>
-                                                                    <%- include('partials/users/user_grid.ejs', {user:
-                                                                        user}); %>
-                                                                        <% }); %>
-                                                                            <% } else { %>
-                                                                                <p>No Users Found.</p>
-                                                                                <% } %>
-                                                                                    <!-- End Users Loop -->
+                                                                    <%- include('partials/users/user_grid.ejs', {user: user}); %>
+                                                                <% }); %>
+                                                            <% } else { %>
+                                                                <p>No Users Found.</p>
+                                                            <% } %>
+                                                            <!-- End Users Loop -->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -367,24 +281,31 @@
                                                         <table class="table table-data2 text-center">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Requestor</th>
+                                                                    <th>Requested By</th>
+                                                                    <th>assign</th>
                                                                     <th>email</th>
                                                                     <th>date</th>
                                                                     <th>form</th>
                                                                     <th>status</th>
-                                                                    <th>requested by</th>
+                                                                    <th>requestor</th>
                                                                     <th>Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <!-- request && modal Loop start -->
-                                                                <% if(reqForms && reqForms.length> 0) { %>
-                                                                    <% reqForms.forEach(reqForm=> { %>
-                                                                        <%- include('partials/request_form/creator_single_form.ejs', {reqForm: reqForm}); %>
-                                                                    <% }); %>
+                                                                <% if(reqForms && reqForms.length > 0) { %>
+                                                                    <% for (let i = 0; i < reqForms.length; i++) { %>
+                                                                        <% const reqForm = reqForms[i]; %>
+                                                                            <% const user = users.find(user => user._id.toString() === reqForm.userId.toString()); %>
+                                                                            <% if(user) { %>
+                                                                                <!-- Include the partial template -->
+                                                                                <%- include('partials/request_form/creator_single_form.ejs', { reqForm: reqForm, user: user }); %>
+                                                                            <% } %>
+                                                                    <% } %>
                                                                 <% } else { %>
-                                                                    <p>No request Found.</p>
+                                                                    <p>No requests found.</p>
                                                                 <% } %>
+                                                                
                                                                 <!-- request && modal Loop end -->
                                                             </tbody>
                                                         </table>

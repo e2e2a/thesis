@@ -27,6 +27,10 @@ var schema = mongoose.Schema({
             type: String,
             required: true
         },
+        imageURL: {
+            type: String,
+            trim: false
+        },
         password: {
             type: String,
             required: true

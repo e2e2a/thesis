@@ -1,3 +1,6 @@
+const fs = require('fs').promises;
+const path = require('path');
+const nodemailer = require('nodemailer');
 const SITE_TITLE = 'Online LGU Katipunan Appointment System'
 const User = require('../models/user');
 const requestedForm = require('../models/request');

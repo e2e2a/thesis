@@ -1,7 +1,5 @@
     <%- include('partials/header/header.ejs'); %>
 
-</head>
-
 <body class="animsition">
     <div class="page-wrapper">
         <%- include('partials/nav_bar/nav.ejs'); %>
@@ -188,28 +186,6 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vehicles Available</h3>
-                                        <div class="table-data__tool">
-                                            <div class="table-data__tool-left">
-                                                <div class="rs-select2--light rs-select2--md">
-                                                    <select class="js-select2" name="property">
-                                                        <option selected="selected">All Properties</option>
-                                                        <option value="">Option 1</option>
-                                                        <option value="">Option 2</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <div class="rs-select2--light rs-select2--sm">
-                                                    <select class="js-select2" name="time">
-                                                        <option selected="selected">Today</option>
-                                                        <option value="">3 Days</option>
-                                                        <option value="">1 Week</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <button class="au-btn-filter">
-                                                    <i class="zmdi zmdi-filter-list"></i>filters</button>
-                                            </div>
-                                        </div>
                                         <div class="table-responsive table-responsive-data2">
                                             <table class="table table-data2">
                                                 <thead>
@@ -264,33 +240,11 @@
                         </section>
                         <!-- Available List END-->
                         <!-- Process List START-->
-                        <section class="p-t-40">
+                        <section class="p-t-80">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vehicles Process</h3>
-                                        <div class="table-data__tool">
-                                            <div class="table-data__tool-left">
-                                                <div class="rs-select2--light rs-select2--md">
-                                                    <select class="js-select2" name="property">
-                                                        <option selected="selected">All Properties</option>
-                                                        <option value="">Option 1</option>
-                                                        <option value="">Option 2</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <div class="rs-select2--light rs-select2--sm">
-                                                    <select class="js-select2" name="time">
-                                                        <option selected="selected">Today</option>
-                                                        <option value="">3 Days</option>
-                                                        <option value="">1 Week</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <button class="au-btn-filter">
-                                                    <i class="zmdi zmdi-filter-list"></i>filters</button>
-                                            </div>
-                                        </div>
                                         <div class="table-responsive table-responsive-data2">
                                             <table class="table table-data2">
                                                 <thead>
@@ -312,13 +266,13 @@
                                                                 groupedVehiclesProcess[key] = {
                                                                     type: vehicle.type,
                                                                     category: vehicle.category,
-                                                                    qty: vehicle.qty,
+                                                                    qty: vehicle.qty === 0 ? 1 : vehicle.qty ,
                                                                     status: vehicle.status
                                                                 };
                                                             } else {
                                                                 groupedVehiclesProcess[key].qty += vehicle.qty;
                                                             }
-                                                            totalQuantityProcess += vehicle.qty;
+                                                            totalQuantityProcess += vehicle.qty === 0 ? 1 : vehicle.qty;
                                                         }
                                                     }); %>
 
@@ -344,33 +298,11 @@
                         </section>
                         <!-- Process List END-->
                         <!-- Deployed List START-->
-                        <section class="p-t-40">
+                        <section class="p-t-80">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vehicles Deployed</h3>
-                                        <div class="table-data__tool">
-                                            <div class="table-data__tool-left">
-                                                <div class="rs-select2--light rs-select2--md">
-                                                    <select class="js-select2" name="property">
-                                                        <option selected="selected">All Properties</option>
-                                                        <option value="">Option 1</option>
-                                                        <option value="">Option 2</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <div class="rs-select2--light rs-select2--sm">
-                                                    <select class="js-select2" name="time">
-                                                        <option selected="selected">Today</option>
-                                                        <option value="">3 Days</option>
-                                                        <option value="">1 Week</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <button class="au-btn-filter">
-                                                    <i class="zmdi zmdi-filter-list"></i>filters</button>
-                                            </div>
-                                        </div>
                                         <div class="table-responsive table-responsive-data2">
                                             <table class="table table-data2">
                                                 <thead>
@@ -392,13 +324,13 @@
                                                                 groupedVehiclesDeployed[key] = {
                                                                     type: vehicle.type,
                                                                     category: vehicle.category,
-                                                                    qty: vehicle.qty,
+                                                                    qty: vehicle.qty === 0 ? 1 : vehicle.qty,
                                                                     status: vehicle.status
                                                                 };
                                                             } else {
                                                                 groupedVehiclesDeployed[key].qty += vehicle.qty;
                                                             }
-                                                            totalQuantityDeployed += vehicle.qty;
+                                                            totalQuantityDeployed += vehicle.qty === 0 ? 1 : vehicle.qty;
                                                         }
                                                     }); %>
 
