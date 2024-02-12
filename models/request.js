@@ -20,6 +20,12 @@ var schema = mongoose.Schema({
         type: String,
         required: true
     },
+    dateCreated: {
+        type: String,
+    },
+    dateApproved: {
+        type: String,
+    },
     formURL: {
         type: String,
         trim: false

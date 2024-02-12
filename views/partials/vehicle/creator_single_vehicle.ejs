@@ -8,26 +8,25 @@
     <td class="desc"><%= vehicle.category %></td>
     <td class="desc"><%= vehicle.type %></td>
     <td><%= vehicle.model %></td>
-    <td>2018-09-27 02:12</td>
     <td><span class="status--<%= vehicle.status %>"><%= vehicle.status %></span></td>
     <td>
-        <div class="table-data-feature">
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="Send">
-                <i class="zmdi zmdi-mail-send"></i>
-            </button>
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="Edit">
-                <i class="zmdi zmdi-edit"></i>
-            </button>
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="Delete">
-                <i class="zmdi zmdi-delete"></i>
-            </button>
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="More">
-                <i class="zmdi zmdi-more"></i>
-            </button>
-        </div>
+        <form action="" method="post">
+            <div class="table-data-feature text-center justify-content-center">
+                <% if(vehicle.status === 'available'){ %>
+                <button class="item" data-toggle="tooltip"
+                    data-placement="top" title="Edit">
+                    <i class="zmdi zmdi-edit"></i>
+                </button>
+                <button class="item" data-toggle="tooltip"
+                    data-placement="top" title="Delete">
+                    <i class="zmdi zmdi-delete"></i>
+                </button>
+            </div>
+        </form>
+        <% } else if(vehicle.status === 'process'){ %>
+            <p>Waiting For Approval</p>
+        <% } else if(vehicle.status === 'deployed'){ %>
+            <p>Waiting End Contract</p>
+        <% } %>
     </td>
 </tr>

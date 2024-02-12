@@ -21,7 +21,7 @@
     <td>
         <span class="block-email"><%= user.email %></span>
     </td>
-    <td>date</td>
+    <td><%= reqForm.dateApproved %></td>
     <td><button type="button" data-toggle="modal" data-target="#<%= reqForm._id %>" style="color: dodgerblue;">View PDF</button></td>
     <td>
         <span class="status--<%= reqForm.status %>"><%= reqForm.status %></span>
@@ -31,8 +31,12 @@
     <td>
         <form action="vehicles/remove" method="post" class="table-data-feature text-center">
             <input type="hidden" name="formId" value="<%= reqForm._id %>">
+            <button class="item" data-toggle="tooltip"
+                    data-placement="top" title="Send">
+                    <i class="zmdi zmdi-mail-send"></i>
+                </button>
             <button class="item delete" data-toggle="tooltip" name="actions" value="Delete"
-                data-placement="top" title="Decline">
+                data-placement="top" title="End Contract">
                 <i class="zmdi zmdi-delete"></i>
             </button>
         </form>

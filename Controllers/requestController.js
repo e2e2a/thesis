@@ -13,12 +13,12 @@ module.exports.index = async (req, res) => {
             return res.redirect('/login');
         }
         let selectedVehicleIds;
-if (Array.isArray(req.body.selectedVehicle)) {
-    selectedVehicleIds = req.body.selectedVehicle;
-} else {
-    // If req.body.selectedVehicle is not an array, convert it to an array with a single element
-    selectedVehicleIds = [req.body.selectedVehicle];
-}
+        if (Array.isArray(req.body.selectedVehicle)) {
+            selectedVehicleIds = req.body.selectedVehicle;
+        } else {
+            // If req.body.selectedVehicle is not an array, convert it to an array with a single element
+            selectedVehicleIds = [req.body.selectedVehicle];
+        }
 
         const AllSelectedVehicles = selectedVehicleIds.map(vehicleId => ({
             vehicleId: vehicleId,
@@ -26,18 +26,27 @@ if (Array.isArray(req.body.selectedVehicle)) {
         }));
         console.log('Selected Vehicle IDs:', AllSelectedVehicles);
         const noVehicleSelected = AllSelectedVehicles.some(vehicle => vehicle.vehicleId === undefined || vehicle.qty === undefined);
-        if (noVehicleSelected) {
-            console.log('No Vehicle Selected');
-            return res.status(404).render('404');
-        }
         const user = await User.findById(req.session.login);
-
+        if (noVehicleSelected) {
+            if (user.role === 'member') {
+                console.log('No Vehicle Selected');
+                req.flash('message', 'No Vehicles Available')
+                return res.render('/');
+            } else {
+                console.log('No Vehicle Selected');
+                req.flash('message', 'No Vehicles Available')
+                return res.render('/dashboard');
+            }
+        }
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
         const formData = new reqForm({
             userId: user._id,
             address: req.body.address,
             selectedVehicle: AllSelectedVehicles,
             city: req.body.city,
             event: req.body.event,
+            dateCreated: formattedDate,
             requestorName: req.body.requestorName,
             status: 'pending',
         });
@@ -46,7 +55,7 @@ if (Array.isArray(req.body.selectedVehicle)) {
 
         const templatePath = path.join(__dirname, '../views/pdf/pdf-template.ejs');
         const templateContent = await fs.readFile(templatePath, 'utf-8');
-        const html = ejs.render(templateContent, { formData, selectedVehicles: AllSelectedVehicles  });
+        const html = ejs.render(templateContent, { formData, selectedVehicles: AllSelectedVehicles });
         const createdBy = user._id.toString();
         const savedRequestIdString = savedRequest._id.toString();
         const savedRequestNameString = savedRequest.requestorName.toString();
@@ -146,7 +155,11 @@ if (Array.isArray(req.body.selectedVehicle)) {
                 outputPath
             );
             //end
+            if (user.role === 'member') {
             return res.status(200).redirect('/');
+            }else {
+            return res.status(200).redirect('/dashboard');
+            }
         } catch (error) {
             console.error('Error launching browser:', error);
         }

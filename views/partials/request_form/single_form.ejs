@@ -21,7 +21,7 @@
     <td>
         <span class="block-email"><%= user.email %></span>
     </td>
-    <td>date</td>
+    <td><%= reqForm.dateCreated %></td>
     <% if(reqForm.status === 'approved') { %>
     <td><button type="button" data-toggle="modal" data-target="#<%= reqForm._id %>" style="color: dodgerblue;">View PDF</button></td>
     <% } %>

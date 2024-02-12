@@ -30,7 +30,7 @@ module.exports.index = async (req, res) => {
                     messages: req.flash(),
                     vehicle: vehicle,
                     vehicles: vehicles,
-                    User:User,
+                    User: User,
                 })
             } else {
                 return res.render('404')
@@ -61,11 +61,15 @@ module.exports.approve = async (req, res) => {
                     const vehiclesToUpdate = await Vehicle.find({ type: selectedVehicle.vehicleId, qty: 0, status: 'process' }).limit(selectedVehicle.qty);
                     await Promise.all(vehiclesToUpdate.map(async (vehicle) => {
                         vehicle.status = 'deployed';
+                        const currentDate = new Date();
+                        const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
+                        vehicle.dateDeployed = formattedDate;
                         await vehicle.save();
                     }));
                 }));
-
-                await requestedForm.findByIdAndUpdate(formId, { status: 'approved' });
+                const currentDate = new Date();
+                const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
+                await requestedForm.findByIdAndUpdate(formId, { status: 'approved', dateApproved: formattedDate });
                 req.flash('message', 'Approved');
                 const user = await User.findById(req.session.login);
                 const requestUser = await User.findById(requestForm.userId)
@@ -208,11 +212,11 @@ module.exports.dashboard = async (req, res) => {
     }
 }
 
-module.exports.userEdit = async (req,res) => {
+module.exports.userEdit = async (req, res) => {
     const userLogin = await User.findById(req.session.login);
     try {
-        if(userLogin){
-            if(userLogin.role === 'admin'){
+        if (userLogin) {
+            if (userLogin.role === 'admin') {
                 const userId = req.params.id;
                 console.log(userId)
                 const userData = await User.findById(userId);
@@ -222,17 +226,17 @@ module.exports.userEdit = async (req,res) => {
                     title: 'Profile',
                     session: req.session,
                     userData: userData,
-                    user: user, 
+                    user: user,
                     currentUrl: req.originalUrl
                 });
-            }else {
+            } else {
                 return res.status(404).render('404')
             }
-        } else{
+        } else {
             return res.redirect('/login');
         }
     } catch (error) {
-        
+
     }
 }
 
@@ -248,13 +252,13 @@ module.exports.userDoEdit = async (req, res) => {
             return res
                 .status(err.status || 400)
                 .render('400', { err: err });
-        } else if (err) { 
+        } else if (err) {
             console.log(err);
             return res
                 .status(err.status || 500)
                 .render('500', { err: err });
-        } else { 
-            let imageUrl = ''; 
+        } else {
+            let imageUrl = '';
             if (user.imageURL) {
                 imageUrl = user.imageURL;
             }
@@ -284,7 +288,7 @@ module.exports.userDoEdit = async (req, res) => {
     });
 }
 
-module.exports.userDel = async (req,res) => {
+module.exports.userDel = async (req, res) => {
     const userId = req.body.userId;
     try {
         const deletedUser = await User.findByIdAndDelete(userId);

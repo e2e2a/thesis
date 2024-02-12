@@ -26,6 +26,9 @@ var schema = mongoose.Schema({
         type: String,
         required: true
     },
+    dateDeployed: {
+        type: String,
+    },
     category: {
         type: String,
         enum: allCategory,
