@@ -146,6 +146,21 @@ module.exports.approve = async (req, res) => {
     } else if (actions === 'decline') {
 
         console.log('decline');
+        const formId = req.body.formId;
+        try {
+            const requestForm = await requestedForm.findById(formId);
+
+            const updatedRequestForm = await requestedForm.findByIdAndUpdate(formId, { status: 'declined' }, { new: true });
+            if (updatedRequestForm) {
+                req.flash('message', 'Request Cancelled Successfully!');
+                return res.status(200).redirect('/vehicles');
+            } else {
+                req.flash('message', 'error sending message!');
+                return res.status(400).redirect('/vehicles');
+            }
+        } catch (error) {
+            console.error('Error approving request:', error);
+        }
     } else {
         console.log('Default logic goes here');
     }

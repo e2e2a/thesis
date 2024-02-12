@@ -268,6 +268,7 @@ module.exports.userDoEdit = async (req, res) => {
                 contact: req.body.contact,
                 address: req.body.address,
                 assign: req.body.assign,
+                role: req.body.role,
                 imageURL: imageUrl
             };
             const updatedUser = await User.findByIdAndUpdate(user._id, updateUser, {

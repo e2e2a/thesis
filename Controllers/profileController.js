@@ -68,11 +68,30 @@ module.exports.userDoEdit = async (req, res) => {
                 const updatedUser = await User.findByIdAndUpdate(user._id, updateUser, {
                     new: true
                 });
-                if (updatedUser) {
-                    console.log('user updated profile', user._id);
-                    return res.redirect('/');
-                } else {
-                    console.log('update failed');
+                if(updatedUser.role === 'member'){
+                    if (updatedUser) {
+                        console.log('user updated profile', user._id);
+                        req.flash('message', 'Profile update success!')
+                        return res.redirect('/');
+                    } else {
+                        console.log('update failed');
+                    }
+                } else if(updatedUser.role === ' creator') {
+                    if (updatedUser) {
+                        console.log('user updated profile', user._id);
+                        req.flash('message', 'Profile update success!')
+                        return res.redirect('/vehicles');
+                    } else {
+                        console.log('update failed');
+                    }
+                } else if(updatedUser.role === 'admin') {
+                    if (updatedUser) {
+                        console.log('user updated profile', user._id);
+                        req.flash('message', 'Profile update success!')
+                        return res.redirect('/admin');
+                    } else {
+                        console.log('update failed');
+                    }
                 }
             }
         });
