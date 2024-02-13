@@ -13,10 +13,10 @@
         <form action="" method="post">
             <div class="table-data-feature text-center justify-content-center">
                 <% if(vehicle.status === 'available'){ %>
-                <button class="item" data-toggle="tooltip"
+                <a href="/vehicle/<%= vehicle._id %>" class="item" data-toggle="tooltip"
                     data-placement="top" title="Edit">
                     <i class="zmdi zmdi-edit"></i>
-                </button>
+                </a>
                 <button class="item" data-toggle="tooltip"
                     data-placement="top" title="Delete">
                     <i class="zmdi zmdi-delete"></i>

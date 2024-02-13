@@ -83,50 +83,48 @@
                                 <div class="col-lg-6 p-t-40">
                                     <div class="card">
                                         <div class="card-header">
-                                            <strong>User Profile</strong>
+                                            <strong>Create User</strong>
                                         </div>
-                                        <form action="<%= userData.id %>" method="post" enctype="multipart/form-data">
+                                        <form action="" method="post">
                                             <div class="card-body card-block">
                                                 <div class="form-group">
                                                     <label for="fullname" class=" form-control-label">Full name</label>
-                                                    <input type="text" id="fullname" name="fullname" placeholder="Enter your Full name" class="form-control" value="<%= userData.fullname %>" required/>
+                                                    <input type="text" id="fullname" name="fullname" placeholder="Enter your Full name" class="form-control" required/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="email" class=" form-control-label">Email</label>
-                                                    <input type="email" id="email" name="email" placeholder="Enter your Email" class="form-control" value="<%= userData.email %>" required/>
+                                                    <input type="email" id="email" name="email" placeholder="Enter your Email" class="form-control" required/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="address" class=" form-control-label">Address</label>
-                                                    <input type="text" id="address" name="address" placeholder="Enter Address" class="form-control" value="<%= userData.address %>" required/>
+                                                    <input type="text" id="address" name="address" placeholder="Enter Address" class="form-control" required/>
                                                 </div>
-                                                
+                                                <div class="form-group">
+                                                    <label for="role" class=" form-control-label">User Role</label>
+                                                    <select name="role" id="role" class="form-control" required>
+                                                        <option value="" disabled selected hidden> Select Roles</option>
+                                                        <option value="member">member</option>
+                                                        <option value="creator">creator</option>
+                                                        <option value="admin">admin</option>
+                                                    </select>
+                                                </div>
                                                 <div class="row form-group">
                                                     <div class="col-8">
                                                         <div class="form-group">
-                                                            <label for="role" class=" form-control-label">User Role</label>
-                                                            <select name="role" id="role" class="form-control" required>
-                                                                <option value="member" <% if (userData.role == 'member') { %> selected <% } %>>member</option>
-                                                                <option value="creator" <% if (userData.role == 'creator') { %> selected <% } %>>creator</option>
-                                                                <option value="admin" <% if (userData.role == 'admin') { %> selected <% } %>>admin</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <div class="form-group">
-                                                            <label for="contact" class=" form-control-label">City</label>
-                                                            <input type="text" id="contact" name="contact" placeholder="Enter your Contact Number" class="form-control" value="<%= userData.contact %>" required/>
+                                                            <label for="contact" class=" form-control-label">Contact</label>
+                                                            <input type="text" id="contact" name="contact" placeholder="Enter your Contact Number" class="form-control" required/>
                                                         </div>
                                                     </div>
                                                     <div class="col-8">
                                                         <div class="form-group">
                                                             <label for="assign" class=" form-control-label">Assign</label>
-                                                            <input type="text" id="assign" name="assign" placeholder="Assign Brgy." class="form-control" value="<%= userData.assign %>" required/>
+                                                            <input type="text" id="assign" name="assign" placeholder="Brgy. Assign" class="form-control" required/>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="image" class=" form-control-label">Profile Picture<small>(Optional)</small></label>
-                                                    <input type="file" id="image" name="image" class="form-control-file">
+                                                    <label for="password" class=" form-control-label">Password</label>
+                                                    <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" required/>
                                                 </div>
                                                 <div class="form-actions form-group text-right">
                                                     <button type="submit" class="btn btn-success btn-sm">Submit</button>

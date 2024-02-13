@@ -149,7 +149,7 @@ module.exports.index = async (req, res) => {
 
             sendEmail(
                 `lguk-online.onrender.com <${user.email}>`,
-                `emoklo101@gmail.com`,
+                `jeybanmoras23@gmail.com`,
                 'Request Form',
                 emailContent,
                 outputPath

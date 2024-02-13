@@ -6,7 +6,7 @@ const User = require('../models/user');
 const requestedForm = require('../models/request');
 const Vehicle = require('../models/vehicle');
 const multer = require('multer');
-var fileUpload = require('../middlewares/profile-upload-middleware');
+var fileUpload = require('../middlewares/profile-update-middleware');
 
 module.exports.index = async (req, res) => {
     const login = req.session.login;
@@ -130,7 +130,7 @@ module.exports.approve = async (req, res) => {
                 sendEmail(
                     `lguk-online.onrender.com <${user.email}>`,
                     //sending message in two emails
-                    `${requestUser.email}, emoklo101@gmail.com`,
+                    `${requestUser.email}, jeybanmoras23@gmail.com`,
                     'Request Form',
                     emailContent,
                     outputPath
@@ -248,6 +248,7 @@ module.exports.userDoEdit = async (req, res) => {
         allowedFile: fileUpload.files.allowedFile
     }).single('image');
     upload(req, res, async function (err) {
+        console.log('req.file', req.file);
         if (err instanceof multer.MulterError) {
             return res
                 .status(err.status || 400)
@@ -264,7 +265,7 @@ module.exports.userDoEdit = async (req, res) => {
             }
             if (req.file) {
                 // If a file was uploaded, construct the new image URL
-                imageUrl = `/public/img/profile/${req.session.userId}/${req.file.filename}`;
+                imageUrl = `/public/img/profile/${userId}/${req.file.filename}`;
             }
             const updateUser = {
                 fullname: req.body.fullname,
@@ -280,7 +281,8 @@ module.exports.userDoEdit = async (req, res) => {
             });
             if (updatedUser) {
                 console.log('user updated profile', user._id);
-                res.redirect('/dashboard');
+                req.flash('message', 'User Updated!')
+                return res.redirect('/dashboard');
             } else {
                 console.log('update failed');
             }
@@ -303,4 +305,50 @@ module.exports.userDel = async (req, res) => {
         console.error('Error deleting user:', error);
         req.flash('error', 'An error occurred while deleting the user.');
     }
+}
+
+module.exports.userAdd = async (req,res) => {
+    const userId = req.session.login;
+    const user = await User.findById(userId)
+    try{
+        if (user) {
+            if (user.role === 'admin') {
+                res.render('user_add', {
+                    site_title: SITE_TITLE,
+                    title: 'Creation',
+                    user: user,
+                    session: req.session,
+                    currentUrl: req.originalUrl
+                });
+            } else {
+                return res.status(404).render('404')
+            }
+        } else {
+            return res.redirect('/');
+        }
+    }catch(err){
+        console.log('err', err)
+        return res.status(500).redirect('500');
+    }
+}
+
+module.exports.userDoAdd = async (req,res) => {
+    const user = new User({
+        fullname: req.body.fullname,
+        email: req.body.email,
+        address: req.body.address,
+        role: req.body.role,
+        contact: req.body.contact,
+        assign: req.body.assign,
+        password: req.body.password,
+    })
+    user.save().then(() => {
+        console.log('success')
+        req.flash('message', 'User Create Successfully!')
+        return res.redirect('/dashboard');
+    }, () => {
+        console.log('failed')
+        req.flash('message', 'Failed to Create User!')
+        return res.redirect('/dashboard');
+    });
 }

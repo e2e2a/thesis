@@ -26,6 +26,11 @@ module.exports = function(app){
     app.get('/user/:id', adminController.userEdit);
     app.post('/user/:id', adminController.userDoEdit);
     app.post('/dashboard/user/delete', adminController.userDel);
+    app.get('/dashboard/user/create', adminController.userAdd);
+    app.post('/dashboard/user/create', adminController.userDoAdd);
+    //vehicles_update
+    app.get('/vehicle/:id', vehicleController.vehicleUpdate);
+    app.post('/vehicle/:id', vehicleController.vehicleDoUpdate);
     //profileedit
     app.get('/profile', profileController.userEdit);
     app.post('/profile/edit', profileController.userDoEdit);
