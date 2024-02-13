@@ -7,8 +7,21 @@ var schema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', required: true
     },
-    driver: {
+    assignPersonel: {
         type: String,
+        required: true
+    },
+    dateIssued: {
+        type: String,
+        required: true
+    },
+    condition: {
+        type: String,
+        required: true
+    },
+    OrCr: {
+        type: String,
+        required: true
     },
     brand: {
         type: String,

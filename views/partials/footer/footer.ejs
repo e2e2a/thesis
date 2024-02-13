@@ -3,6 +3,7 @@
     <% if (messages.message) { %>
         window.alert('<%= messages.message %>');
     <% } %>
+
     function filterVehicles() {
         const selectedCategory = document.getElementById('categorySelect').value;
         const selectedStatus = document.getElementById('statusSelect').value;
@@ -14,7 +15,7 @@
         // Show rows matching the selected category and status
         rows.forEach(row => {
             const categoryCell = row.querySelector('td:nth-child(3)'); // 3rd row td to find category
-            const statusCell = row.querySelector('td:nth-child(7)'); // 7th row td to find the status
+            const statusCell = row.querySelector('td:nth-child(6)'); // 7th row td to find the status
 
             const category = categoryCell.textContent.trim();
             const status = statusCell.textContent.trim();

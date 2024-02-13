@@ -88,20 +88,35 @@
                                         <form action="<%= vehicle._id %>" method="post">
                                             <div class="card-body card-block">
                                                 <div class="form-group">
-                                                    <label for="driver" class=" form-control-label">Driver</label>
-                                                    <input type="text" id="driver" name="driver" placeholder="Enter Driver name" class="form-control" value="<%= vehicle.driver %>">
+                                                    <label for="assignPersonel" class=" form-control-label">Assign Personel</label>
+                                                    <input type="text" id="assignPersonel" name="assignPersonel" placeholder="Enter Assign Personel" class="form-control" value="<%= vehicle.assignPersonel %>" required/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="brand" class=" form-control-label">Brand</label>
-                                                    <input type="text" id="brand" name="brand" placeholder="Enter Brand" class="form-control" value="<%= vehicle.brand %>">
+                                                    <input type="text" id="brand" name="brand" placeholder="Enter Brand" class="form-control" value="<%= vehicle.brand %>" required/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="model" class=" form-control-label">Model</label>
-                                                    <input type="text" id="model" name="model" placeholder="Enter model" class="form-control" value="<%= vehicle.model %>">
+                                                    <input type="text" id="model" name="model" placeholder="Enter model" class="form-control" value="<%= vehicle.model %>" required/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="plateNumber" class=" form-control-label">Plate Number</label>
-                                                    <input type="text" id="plateNumber" name="plateNumber" placeholder="Enter Plate Number" class="form-control" value="<%= vehicle.plateNumber %>">
+                                                    <input type="text" id="plateNumber" name="plateNumber" placeholder="Enter Plate Number" class="form-control" value="<%= vehicle.plateNumber %>" required/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="OrCr" class=" form-control-label">OR /CR / MIR-NUMBER</label>
+                                                    <input type="text" id="OrCr" name="OrCr" placeholder="Enter OR /CR / MIR-NUMBER" class="form-control" value="<%= vehicle.OrCr %>" required/>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col col-md-3">
+                                                        <label for="condition" class=" form-control-label">Condition</label>
+                                                    </div>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="condition" id="condition" class="form-control" required>
+                                                            <option value="Serviceable" <% if (vehicle.condition == 'Serviceable') { %> selected <% } %>>Serviceable</option>
+                                                            <option value="Non Serviceable" <% if (vehicle.condition == 'Non Serviceable') { %> selected <% } %>>Non Serviceable</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3">
