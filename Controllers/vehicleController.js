@@ -38,11 +38,7 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const data = new Vehicle({
@@ -72,11 +68,7 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
 
@@ -110,11 +102,7 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const data = new Vehicle({
@@ -144,11 +132,7 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
         } else if (category === 'Military Vehicles') {
@@ -181,11 +165,7 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const data = new Vehicle({
@@ -215,11 +195,7 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
         } else if (category === '4-Wheel Vehicles') {
@@ -252,11 +228,7 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const data = new Vehicle({
@@ -286,16 +258,14 @@ module.exports.doCreate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error saving data:', error);
                         req.flash('failed', 'Creation failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
         }
     } catch (error) {
         console.log(error);
+        req.flash('message', 'Error occured in Server.');
+        return res.status(500).redirect('500');
     }
 }
 
@@ -321,7 +291,9 @@ module.exports.vehicleUpdate = async (req, res) => {
             return res.redirect('/')
         }
     } catch (error) {
-        console.log('error:', error)
+        console.log('error:', error);
+        req.flash('message', 'Error occured in Server');
+        return res.status(500).redirect('500');
     }
 }
 
@@ -362,11 +334,7 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const dataUpdated = {
@@ -395,11 +363,7 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
         } else if (category === 'Heavy Equipment Vehicles') {
@@ -431,11 +395,7 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const dataUpdated = {
@@ -464,11 +424,7 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
         } else if (category === 'Military Vehicles') {
@@ -500,11 +456,7 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const dataUpdated = {
@@ -533,11 +485,7 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
         } else if (category === '4-Wheel Vehicles') {
@@ -569,11 +517,7 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             } else {
                 const dataUpdated = {
@@ -602,16 +546,14 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     .catch((error) => {
                         console.error('Error updating data:', error);
                         req.flash('message', 'Update failed!');
-                        if (user.role === 'creator') {
-                            return res.redirect('/vehicles');
-                        } else {
-                            return res.redirect('/dashboard');
-                        }
+                        return res.status(500).redirect('500');
                     });
             }
         }
     } catch (error) {
         console.log(error);
+        req.flash('message', 'Error occured!');
+        return res.status(500).redirect('500');
     }
 }
 

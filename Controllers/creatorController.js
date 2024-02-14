@@ -12,6 +12,14 @@ module.exports.index = async (req, res) => {
     try {
         if (userLogin) {
             if (userLogin.role === 'creator') {
+                //date
+                const currentDate = new Date();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const day = String(currentDate.getDate()).padStart(2, '0');
+                const year = currentDate.getFullYear();
+                const formattedDate = `${month}-${day}-${year}`;
+                const submissionCount = await requestedForm.countDocuments({ dateCreated: formattedDate });
+                //end date
                 const UserIdlogin = req.session.login;
                 const users = await User.find();
                 const user = await User.findById(UserIdlogin);
@@ -29,6 +37,7 @@ module.exports.index = async (req, res) => {
                     reqForms: reqForms,
                     messages: req.flash(),
                     vehicles: vehicles,
+                    submissionCount:submissionCount,
                 })
             } else {
                 return res.render('404')
@@ -37,7 +46,9 @@ module.exports.index = async (req, res) => {
             return res.redirect('/login')
         }
     } catch (err) {
-        console.log('err:', err)
+        console.log('err:', err);
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }
 module.exports.approve = async (req, res) => {
@@ -142,6 +153,8 @@ module.exports.approve = async (req, res) => {
 
         } catch (error) {
             console.error('Error approving request:', error);
+            req.flash('error', 'An error occurred.');
+            return res.status(500).redirect('500');
         }
     } else if (actions === 'decline') {
 
@@ -201,6 +214,15 @@ module.exports.inventory = async (req, res) => {
     const user = await User.findById(UserIdlogin);
     if (user) {
         if (user.role === 'creator') {
+            //date
+            const currentDate = new Date();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const year = currentDate.getFullYear();
+            const formattedDate = `${month}-${day}-${year}`;
+            const submissionCount = await requestedForm.countDocuments({ dateCreated: formattedDate });
+            //end date
+            const reqForm = await requestedForm.find({ userId: user._id });
             const reqForms = await requestedForm.find();
             const vehicles = await Vehicle.find();
             res.render('creator_vehicles', {
@@ -208,9 +230,11 @@ module.exports.inventory = async (req, res) => {
                 title: 'Dashboard',
                 currentUrl: req.originalUrl,
                 user: user,
+                reqForm:reqForm,
                 reqForms: reqForms,
                 messages: req.flash(),
                 vehicles: vehicles,
+                submissionCount: submissionCount,
             });
         } else {
             return res.status(404).render('/404')
@@ -298,5 +322,7 @@ module.exports.doEndContract = async (req,res) => {
         }
     } catch (error) {
         console.error('Error approving request:', error);
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }

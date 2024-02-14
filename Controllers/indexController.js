@@ -3,71 +3,93 @@ const User = require('../models/user');
 const requestedForm = require('../models/request');
 const Vehicle = require('../models/vehicle');
 
-module.exports.index = async (req,res) => {
+module.exports.index = async (req, res) => {
     const login = req.session.login;
     const userLogin = await User.findById(login);
     try {
-        if(userLogin){
-            if(userLogin.role === 'member'){
-            const UserIdlogin = req.session.login;
-            const users = await User.find();
-            const user = await User.findById(UserIdlogin);
-            const reqForms = await requestedForm.find({userId: user._id});
-            const reqForm = await requestedForm.find();
-            const vehicle = await Vehicle.find();
-            const vehicles = await Vehicle.find();
-            res.render('index', {
-                site_title: SITE_TITLE,
-                title: 'Home',
-                currentUrl: req.originalUrl,
-                users: users,
-                user: user,
-                reqForm: reqForm,
-                reqForms: reqForms,
-                messages: req.flash(),
-                vehicle: vehicle,
-                vehicles:vehicles,
-            })
-            }else{
+        if (userLogin) {
+            if (userLogin.role === 'member') {
+                //date
+                const currentDate = new Date();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const day = String(currentDate.getDate()).padStart(2, '0');
+                const year = currentDate.getFullYear();
+                const formattedDate = `${month}-${day}-${year}`;
+                const submissionCount = await requestedForm.countDocuments({ dateCreated: formattedDate });
+                //end date
+                const UserIdlogin = req.session.login;
+                const users = await User.find();
+                const user = await User.findById(UserIdlogin);
+                const reqForms = await requestedForm.find({ userId: user._id });
+                const reqForm = await requestedForm.find();
+                const vehicle = await Vehicle.find();
+                const vehicles = await Vehicle.find();
+                res.render('index', {
+                    site_title: SITE_TITLE,
+                    title: 'Home',
+                    currentUrl: req.originalUrl,
+                    users: users,
+                    user: user,
+                    reqForm: reqForm,
+                    reqForms: reqForms,
+                    messages: req.flash(),
+                    vehicle: vehicle,
+                    vehicles: vehicles,
+                    submissionCount: submissionCount,
+                })
+            } else {
                 return res.render('404')
             }
-        }else{
+        } else {
             return res.redirect('/login')
         }
-    }catch(err){
-        console.log('err:', err)
+    } catch (err) {
+        console.log('err:', err);
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }
-module.exports.requests = async(req,res) => {
+module.exports.requests = async (req, res) => {
     const login = req.session.login;
     const userLogin = await User.findById(login);
     try {
-        if(userLogin){
-            if(userLogin.role === 'member'){
-            const UserIdlogin = req.session.login;
-            const users = await User.find();
-            const user = await User.findById(UserIdlogin);
-            const reqForms = await requestedForm.find({userId: user._id});
-            const reqForm = await requestedForm.find();
-            
-            res.render('request_status', {
-                site_title: SITE_TITLE,
-                title: 'Requests',
-                currentUrl: req.originalUrl,
-                users: users,
-                user: user,
-                reqForm: reqForm,
-                reqForms: reqForms,
-                messages: req.flash(),
-                
-            })
-            }else{
+        if (userLogin) {
+            if (userLogin.role === 'member') {
+                //date
+                const currentDate = new Date();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const day = String(currentDate.getDate()).padStart(2, '0');
+                const year = currentDate.getFullYear();
+                const formattedDate = `${month}-${day}-${year}`;
+                const submissionCount = await requestedForm.countDocuments({ dateCreated: formattedDate });
+                //end date
+                const UserIdlogin = req.session.login;
+                const users = await User.find();
+                const user = await User.findById(UserIdlogin);
+                const reqForms = await requestedForm.find({ userId: user._id });
+                const reqForm = await requestedForm.find();
+
+                res.render('request_status', {
+                    site_title: SITE_TITLE,
+                    title: 'Requests',
+                    currentUrl: req.originalUrl,
+                    users: users,
+                    user: user,
+                    reqForm: reqForm,
+                    reqForms: reqForms,
+                    messages: req.flash(),
+                    submissionCount:submissionCount,
+
+                })
+            } else {
                 return res.render('404')
             }
-        }else{
+        } else {
             return res.redirect('/login')
         }
-    }catch(err){
-        console.log('err:', err)
+    } catch (err) {
+        console.log('err:', err);
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }

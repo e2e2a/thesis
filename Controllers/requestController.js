@@ -12,6 +12,25 @@ module.exports.index = async (req, res) => {
         if (!req.session.login) {
             return res.redirect('/login');
         }
+        const currentDate = new Date();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const year = currentDate.getFullYear();
+        const formattedDate = `${month}-${day}-${year}`;
+        const submissionCount = await reqForm.countDocuments({ dateCreated: formattedDate });
+
+        // Check if the submission count exceeds the limit
+        const submissionLimit = 10;
+        if (submissionCount >= submissionLimit) {
+            const user = await User.findById(req.session.login);
+            if (user.role === 'admin') {
+                req.flash('message', 'Submission limit exceeded for today. Please try again tomorrow.')
+                return res.redirect('/dashboard')
+            } else if (user.role === 'member') {
+                req.flash('message', 'Submission limit exceeded for today. Please try again tomorrow.')
+                return res.redirect('/')
+            }
+        }
         let selectedVehicleIds;
         if (Array.isArray(req.body.selectedVehicle)) {
             selectedVehicleIds = req.body.selectedVehicle;
@@ -38,8 +57,6 @@ module.exports.index = async (req, res) => {
                 return res.render('/dashboard');
             }
         }
-        const currentDate = new Date();
-        const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
         const formData = new reqForm({
             userId: user._id,
             address: req.body.address,
@@ -66,7 +83,8 @@ module.exports.index = async (req, res) => {
             console.log('Directory created successfully');
         } catch (error) {
             console.error('Error creating directory:', error);
-            return res.status(500).send('Error creating directory');
+            req.flash('error', 'An error occurred.');
+            return res.status(500).redirect('500');
         }
         const outputPath = path.join(outputFolderPath, `${savedRequestIdString}.pdf`);
 
@@ -156,49 +174,54 @@ module.exports.index = async (req, res) => {
             );
             //end
             if (user.role === 'member') {
-            return res.status(200).redirect('/');
-            }else {
-            return res.status(200).redirect('/dashboard');
+                return res.status(200).redirect('/');
+            } else {
+                return res.status(200).redirect('/dashboard');
             }
         } catch (error) {
             console.error('Error launching browser:', error);
+            req.flash('error', 'An error occurred.');
+            return res.status(500).redirect('500');
         }
     } catch (error) {
         console.error('Internal Server Error:', error);
-        return res.status(500).send('Internal Server Error');
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 };
 
-module.exports.formDelete = async(req,res) => {
+module.exports.formDelete = async (req, res) => {
     const userId = req.session.login;
     const user = await User.findById(userId);
     const formId = req.body.formId;
     try {
-        if(user.role === 'admin'){
+        if (user.role === 'admin') {
             const formDeleted = await reqForm.findByIdAndDelete(formId);
-            if(formDeleted){
+            if (formDeleted) {
                 req.flash('message', 'Request Form Deleted');
                 return res.redirect('/dashboard');
-            }else {
+            } else {
                 req.flash('message', 'Request Form Failed to Deleted');
                 return res.redirect('/dashboard');
             }
-        } 
+        }
     } catch (error) {
-        console.log('error:', error)
+        console.log('error:', error);
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }
 
-module.exports.formDeleteMember = async (req,res) => {
+module.exports.formDeleteMember = async (req, res) => {
     const userId = req.session.login;
     const user = await User.findById(userId);
     const formId = req.body.formId;
-    if(user.role === 'member') {
+    if (user.role === 'member') {
         const formDeleted = await reqForm.findByIdAndDelete(formId);
-        if(formDeleted){
+        if (formDeleted) {
             req.flash('message', 'Request Form Deleted');
             return res.redirect('/requests');
-        }else {
+        } else {
             req.flash('message', 'Request Form Failed to Deleted');
             return res.redirect('/requests');
         }

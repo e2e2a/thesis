@@ -14,11 +14,20 @@ module.exports.index = async (req, res) => {
     try {
         if (userLogin) {
             if (userLogin.role === 'admin') {
+                //date
+                const currentDate = new Date();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const day = String(currentDate.getDate()).padStart(2, '0');
+                const year = currentDate.getFullYear();
+                const formattedDate = `${month}-${day}-${year}`;
+                const submissionCount = await requestedForm.countDocuments({ dateCreated: formattedDate });
+                //end date
                 const UserIdlogin = req.session.login;
                 const users = await User.find();
                 const user = await User.findById(UserIdlogin);
                 const vehicle = await Vehicle.find();
                 const vehicles = await Vehicle.find();
+                const reqForm = await requestedForm.find({ userId: user._id });
                 const reqForms = await requestedForm.find();
                 res.render('admin', {
                     site_title: SITE_TITLE,
@@ -26,11 +35,13 @@ module.exports.index = async (req, res) => {
                     currentUrl: req.originalUrl,
                     users: users,
                     user: user,
+                    reqForm: reqForm,
                     reqForms: reqForms,
                     messages: req.flash(),
                     vehicle: vehicle,
                     vehicles: vehicles,
                     User: User,
+                    submissionCount: submissionCount,
                 })
             } else {
                 return res.render('404')
@@ -39,7 +50,9 @@ module.exports.index = async (req, res) => {
             return res.redirect('/login')
         }
     } catch (err) {
-        console.log('err:', err)
+        console.log('err:', err);
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }
 
@@ -183,9 +196,18 @@ module.exports.dashboard = async (req, res) => {
     try {
         if (userLogin) {
             if (userLogin.role === 'admin') {
+                //date
+                const currentDate = new Date();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const day = String(currentDate.getDate()).padStart(2, '0');
+                const year = currentDate.getFullYear();
+                const formattedDate = `${month}-${day}-${year}`;
+                const submissionCount = await requestedForm.countDocuments({ dateCreated: formattedDate });
+                //end date
                 const UserIdlogin = req.session.login;
                 const users = await User.find();
                 const user = await User.findById(UserIdlogin);
+                const reqForm = await requestedForm.find({userId: user._id});
                 const reqForms = await requestedForm.find();
                 const vehicle = await Vehicle.find();
                 const vehicles = await Vehicle.find();
@@ -195,10 +217,12 @@ module.exports.dashboard = async (req, res) => {
                     currentUrl: req.originalUrl,
                     users: users,
                     user: user,
+                    reqForm: reqForm,
                     reqForms: reqForms,
                     messages: req.flash(),
                     vehicle: vehicle,
                     vehicles: vehicles,
+                    submissionCount: submissionCount
                 })
             } else {
                 return res.render('404')
@@ -207,7 +231,8 @@ module.exports.dashboard = async (req, res) => {
             return res.redirect('/login')
         }
     } catch (err) {
-        console.log('err:', err)
+        console.log('err:', err);
+        return res.status(500).redirect('500');
     }
 }
 
@@ -235,7 +260,9 @@ module.exports.userEdit = async (req, res) => {
             return res.redirect('/login');
         }
     } catch (error) {
-
+        console.log('error:', error)
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }
 
@@ -302,7 +329,8 @@ module.exports.userDel = async (req, res) => {
         }
     } catch (error) {
         console.error('Error deleting user:', error);
-        req.flash('error', 'An error occurred while deleting the user.');
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }
 
@@ -327,6 +355,7 @@ module.exports.userAdd = async (req,res) => {
         }
     }catch(err){
         console.log('err', err)
+        req.flash('error', 'An error occurred.');
         return res.status(500).redirect('500');
     }
 }

@@ -72,7 +72,8 @@ module.exports.submit = async (req, res) => {
         }
         
     } catch (error) {
-        return res.status(500).send(error.message);
+        req.flash('error', 'An error occurred.');
+        return res.status(500).redirect('500');
     }
 }
 
