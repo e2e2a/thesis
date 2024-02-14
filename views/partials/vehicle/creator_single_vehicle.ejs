@@ -6,9 +6,10 @@
     <td><%= vehicle.model %></td>
     <td><span class="status--<%= vehicle.status %>"><%= vehicle.status %></span></td>
     <td>
-        <form action="" method="post">
+        <form action="deleteVehicle" method="post">
             <div class="table-data-feature text-center justify-content-center">
                 <% if(vehicle.status === 'available' || vehicle.status === 'not available'){ %>
+                <input type="hidden" name="vehicleId" value="<%= vehicle._id %>">
                 <a href="/vehicle/<%= vehicle._id %>" class="item" data-toggle="tooltip"
                     data-placement="top" title="Edit">
                     <i class="zmdi zmdi-edit"></i>

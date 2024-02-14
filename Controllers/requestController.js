@@ -168,3 +168,39 @@ module.exports.index = async (req, res) => {
         return res.status(500).send('Internal Server Error');
     }
 };
+
+module.exports.formDelete = async(req,res) => {
+    const userId = req.session.login;
+    const user = await User.findById(userId);
+    const formId = req.body.formId;
+    try {
+        if(user.role === 'admin'){
+            const formDeleted = await reqForm.findByIdAndDelete(formId);
+            if(formDeleted){
+                req.flash('message', 'Request Form Deleted');
+                return res.redirect('/dashboard');
+            }else {
+                req.flash('message', 'Request Form Failed to Deleted');
+                return res.redirect('/dashboard');
+            }
+        } 
+    } catch (error) {
+        console.log('error:', error)
+    }
+}
+
+module.exports.formDeleteMember = async (req,res) => {
+    const userId = req.session.login;
+    const user = await User.findById(userId);
+    const formId = req.body.formId;
+    if(user.role === 'member') {
+        const formDeleted = await reqForm.findByIdAndDelete(formId);
+        if(formDeleted){
+            req.flash('message', 'Request Form Deleted');
+            return res.redirect('/requests');
+        }else {
+            req.flash('message', 'Request Form Failed to Deleted');
+            return res.redirect('/requests');
+        }
+    }
+}

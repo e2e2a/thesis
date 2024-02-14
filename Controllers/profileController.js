@@ -76,7 +76,7 @@ module.exports.userDoEdit = async (req, res) => {
                     } else {
                         console.log('update failed');
                     }
-                } else if(updatedUser.role === ' creator') {
+                } else if(updatedUser.role === 'creator') {
                     if (updatedUser) {
                         console.log('user updated profile', user._id);
                         req.flash('message', 'Profile update success!')

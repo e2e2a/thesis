@@ -36,7 +36,7 @@
                                                     const categories = Array.from(new Set(vehicles.map(vehicle => vehicle.category)));
                                                     categories.forEach(category => {
                                                         // Filter vehicles by category
-                                                        const vehiclesInCategory = vehicles.filter(vehicle => vehicle.category === category && vehicle.qty > 0);
+                                                        const vehiclesInCategory = vehicles.filter(vehicle => vehicle.category === category && vehicle.qty > 0 && vehicle.status === 'available');
                                                         // Group vehicles by type and calculate total quantity for each type
                                                         const groupedVehicles = vehiclesInCategory.reduce((acc, vehicle) => {
                                                             if (!acc[vehicle.type]) {

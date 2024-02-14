@@ -22,7 +22,7 @@
         <span class="block-email"><%= user.email %></span>
     </td>
     <td><%= reqForm.dateCreated %></td>
-    <% if(reqForm.status === 'approved') { %>
+    <% if(reqForm.status === 'approved' || reqForm.status === 'settled') { %>
     <td><button type="button" data-toggle="modal" data-target="#<%= reqForm._id %>" style="color: dodgerblue;">View PDF</button></td>
     <% } %>
     <td>
@@ -30,30 +30,40 @@
     </td>
     
     <td><%= reqForm.requestorName %></td>
-    <% if(reqForm.status === 'pending') {%>
     <td> 
-        <div class="table-data-feature">
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="Send">
-                <i class="zmdi zmdi-mail-send"></i>
-            </button>
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="Edit">
-                <i class="zmdi zmdi-edit"></i>
-            </button>
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="Delete">
-                <i class="zmdi zmdi-delete"></i>
-            </button>
-            <button class="item" data-toggle="tooltip"
-                data-placement="top" title="More">
-                <i class="zmdi zmdi-more"></i>
-            </button>
-        </div>
-    </td>
+        <% if(reqForm.status === 'pending') {%>
+        <form action="deleteForm" method="post">
+            <div class="table-data-feature justify-content-center">
+                <button type="submit" class="item delete" data-toggle="tooltip"
+                    data-placement="top" title="Delete">
+                    <i class="zmdi zmdi-delete"></i>
+                </button>
+            </div>
+        </form>
         <% } else if(reqForm.status === 'process'){ %>
-            <td><p class="text-right">Waiting for Approval</p></td>
+            <p class="text-right">Waiting for Approval</p>
+        <% } else if(reqForm.status === 'settled') {%>
+            <form action="deleteForm" method="post">
+                <div class="table-data-feature justify-content-center">
+                    <button type="submit" class="item delete" data-toggle="tooltip"
+                        data-placement="top" title="Delete">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </div>
+            </form>
+        <% } else if(reqForm.status === 'declined') {%>
+            <form action="deleteForm" method="post">
+                <div class="table-data-feature justify-content-center">
+                    <button type="submit" class="item delete" data-toggle="tooltip"
+                        data-placement="top" title="Delete">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </div>
+            </form>
+        <% } else if(reqForm.status === 'approved') {%>
+            <p class="text-right">Waiting End Contract</p>
         <% } %>
+    </td>
     
 </tr>
 <tr class="spacer"></tr>

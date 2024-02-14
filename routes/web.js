@@ -31,9 +31,15 @@ module.exports = function(app){
     //vehicles_update
     app.get('/vehicle/:id', vehicleController.vehicleUpdate);
     app.post('/vehicle/:id', vehicleController.vehicleDoUpdate);
+    app.post('/deleteVehicle', vehicleController.vehicleDelete)
     //profileedit
     app.get('/profile', profileController.userEdit);
     app.post('/profile/edit', profileController.userDoEdit);
+    //end-contract
+    app.post('/vehicles/endcontract', creatorController.doEndContract);
+    //deleteformRequest
+    app.post('/deleteRequestForm', requestController.formDelete);
+    app.post('/deleteForm', requestController.formDeleteMember);
     //Utilities
     app.get('/alert', (req,res) => {
         res.render('alert')

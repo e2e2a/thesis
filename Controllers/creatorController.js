@@ -219,3 +219,84 @@ module.exports.inventory = async (req, res) => {
         return res.redirect('/404')
     }
 }
+
+module.exports.doEndContract = async (req,res) => {
+    const formId = req.body.formId;
+    console.log(formId)
+    try {
+        const actions = req.body.actions
+        if (actions === 'sendEmail') {
+            const form = await requestedForm.findById(formId);
+            const user = await User.findById(form.userId);
+            const userLogin = await User.findById(req.session.login);
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'emonawong22@gmail.com',
+                    pass: 'nouv heik zbln qkhf',
+                },
+            });
+            const sendEmail = async (from, to, subject, htmlContent) => {
+                try {
+                    const mailOptions = {
+                        from,
+                        to,
+                        subject,
+                        html: htmlContent,
+                    };
+                    const info = await transporter.sendMail(mailOptions);
+                    console.log('Email sent:', info.response);
+                } catch (error) {
+                    console.error('Error sending email:', error);
+                    throw new Error('Failed to send email');
+                }
+            };
+            const emailContent = `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h1 style="color: #000;">Hello ${user.fullname}</h1>
+                    <p style="color: #000;">From: <strong>Reymond R. Godoy</strong></p>
+                    <p style="color: ##FF7F7F;">This is a warning</p>
+                    <p style="color: #000;">Please check your Request Form <a href="/requests" ></a></p>
+                </div>
+            `;
+            sendEmail(
+                `lguk-katipunan.onrender.com <${userLogin.email}>`,
+                user.email,
+                'Notification For Warning',
+                emailContent
+            );
+            req.flash('message', 'Email Send!')
+            return res.redirect('/vehicles')
+        
+        } else if (actions === 'endContract'){
+            const requestForm = await requestedForm.findById(formId);
+        console.log(requestForm)
+        // Check if all selected vehicles have non-zero quantities
+        const allQuantitiesNonZero = await Promise.all(requestForm.selectedVehicle.map(async (selectedVehicle) => {
+            const vehicleCount = await Vehicle.countDocuments({ type: selectedVehicle.vehicleId, qty: 0, status: 'deployed' });
+            return vehicleCount >= selectedVehicle.qty;
+        }));
+        // Check if all selected vehicles have non-zero quantities
+        if (allQuantitiesNonZero.every(quantity => quantity)) {
+            await Promise.all(requestForm.selectedVehicle.map(async (selectedVehicle) => {
+                const vehiclesToUpdate = await Vehicle.find({ type: selectedVehicle.vehicleId, qty: 0, status: 'deployed' }).limit(selectedVehicle.qty);
+                await Promise.all(vehiclesToUpdate.map(async (vehicle) => {
+                    vehicle.qty = 1;
+                    vehicle.status = 'available';
+                    await vehicle.save();
+                }));
+            }));
+            const currentDate = new Date();
+            const dateSettled = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
+            await requestedForm.findByIdAndUpdate(formId, { status: 'settled', dateSettled: dateSettled });
+            req.flash('message', 'Successfully End Contract!');
+            return res.status(200).redirect('/vehicles');
+        } else {
+            req.flash('message', 'Failed to End Contract');
+            return res.status(400).redirect('/vehicles');
+        }
+        }
+    } catch (error) {
+        console.error('Error approving request:', error);
+    }
+}

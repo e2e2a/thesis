@@ -34,14 +34,31 @@
     <td><%= reqForm.requestorName %></td>
     <% if(reqForm.status === 'process') {%>
     <td>
-        <form action="vehicles/remove" method="post" class="table-data-feature text-center">
+        <form action="vehicles/remove" method="post" class="table-data-feature justify-content-center text-center">
             <input type="hidden" name="formId" value="<%= reqForm._id %>">
             <button class="item delete" data-toggle="tooltip" name="actions" value="Delete"
-                data-placement="top" title="Decline">
+                data-placement="top" title="Cancel">
                 <i class="zmdi zmdi-delete"></i>
             </button>
         </form>
     </td>
     <% } %>
+    <% if(reqForm.status === 'approved') {%>
+        <td>
+            <form action="vehicles/endcontract" method="post" >
+                <div class="table-data-feature text-center justify-content-center">
+                    <input type="hidden" name="formId" value="<%= reqForm._id %>">
+                    <button class="item" data-toggle="tooltip" value="sendEmail" name="actions"
+                    data-placement="top" title="Send Warning">
+                        <i class="zmdi zmdi-mail-send"></i>
+                    </button>
+                    <button class="item delete" data-toggle="tooltip" name="actions" value="endContract"
+                        data-placement="top" title="End Contract">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </div>
+            </form>
+        </td>
+        <% } %>
 </tr>
 <tr class="spacer"></tr>

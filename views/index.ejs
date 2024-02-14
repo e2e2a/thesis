@@ -137,7 +137,7 @@
                                                                     </select>
                                                                     <div class="dropDownSelect2"></div>
                                                                 </div>
-                                                                <div class="rs-select2--light rs-select2--sm">
+                                                                <!-- <div class="rs-select2--light rs-select2--sm">
                                                                     <select id="statusSelect" class="js-select2" name="time" onchange="filterVehicles()">
                                                                         <option value="All Status">All Status</option>
                                                                         <option value="available">Available</option>
@@ -145,7 +145,7 @@
                                                                         <option value="process">Process</option>
                                                                     </select>
                                                                     <div class="dropDownSelect2"></div>
-                                                                </div>
+                                                                </div> -->
                                                                 <button class="au-btn-filter">
                                                                     <i
                                                                         class="zmdi zmdi-filter-list"></i>filters</button>
@@ -168,9 +168,10 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         <% vehicle.forEach(vehicle=> { %>
-                                                                            <%- include('./partials/vehicle/single_vehicle.ejs',
-                                                                                {vehicle: vehicle}); %>
-                                                                                <% }); %>
+                                                                            <% if(vehicle.status === 'available') {%>
+                                                                                <%- include('./partials/vehicle/single_vehicle.ejs', {vehicle: vehicle}); %>
+                                                                            <% } %>
+                                                                        <% }); %>
                                                                     </tbody>
                                                                 </table>
                                                             </div>

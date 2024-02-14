@@ -26,6 +26,9 @@ var schema = mongoose.Schema({
     dateApproved: {
         type: String,
     },
+    dateSettled: {
+        type: String,
+    },
     formURL: {
         type: String,
         trim: false

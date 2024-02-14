@@ -29,6 +29,7 @@
     
     <td><%= reqForm.requestorName %></td>
     <td>
+        <% if(reqForm.status === 'process') {%>
         <form action="admin/approve" method="post" class="table-data-feature text-center">
             <input type="hidden" name="formId" value="<%= reqForm._id %>">
             <button class="item approve" data-toggle="tooltip" name="actions" value="approve"
@@ -40,6 +41,39 @@
                 <i class="zmdi zmdi-close"></i>
             </button>
         </form>
+        <% }else if(reqForm.status === 'declined') {%>
+            <div class="table-data-feature justify-content-center">
+                <form action="deleteRequestForm" method="post">
+                    <input type="hidden" name="formId" value="<%= reqForm._id %>">
+                    <button class="item delete" data-toggle="tooltip" name="actions" value="decline"
+                    data-placement="top" title="Decline">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </form>
+            </div>
+        <% }else if(reqForm.status === 'approved') { %>
+            <p class="text-right"> Waiting End Contract </p>
+        <% }else if(reqForm.status === 'settled') {%>
+            <div class="table-data-feature justify-content-center">
+                <form action="deleteRequestForm" method="post">
+                    <input type="hidden" name="formId" value="<%= reqForm._id %>">
+                    <button class="item delete" data-toggle="tooltip" name="actions" value="decline"
+                    data-placement="top" title="Delete">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </form>
+            </div>
+        <% }else if(reqForm.status === 'pending') {%>
+            <div class="table-data-feature justify-content-center">
+                <form action="deleteRequestForm" method="post">
+                    <input type="hidden" name="formId" value="<%= reqForm._id %>">
+                    <button class="item delete" data-toggle="tooltip" name="actions" value="decline"
+                    data-placement="top" title="Delete">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </form>
+            </div>
+        <% } %>
     </td>
 </tr>
 <tr class="spacer"></tr>

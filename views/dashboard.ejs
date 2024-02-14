@@ -167,7 +167,7 @@
                                                                             <% const user = users.find(user => user._id.toString() === reqForm.userId.toString()); %>
                                                                             <% if(user) { %>
                                                                                 <!-- Include the partial template -->
-                                                                                <%- include('partials/request_form/creator_single_form.ejs', { reqForm: reqForm, user: user }); %>
+                                                                                <%- include('partials/request_form/admin_single_form.ejs', { reqForm: reqForm, user: user }); %>
                                                                             <% } %>
                                                                     <% } %>
                                                                 <% } else { %>
@@ -213,6 +213,7 @@
                                                                     <option value="available">Available</option>
                                                                     <option value="deployed">Deployed</option>
                                                                     <option value="process">Process</option>
+                                                                    <option value="not available">N/A</option>
                                                                 </select>
                                                                 <div class="dropDownSelect2"></div>
                                                             </div>

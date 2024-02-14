@@ -53,7 +53,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h3 class="title-5 m-b-35">Vehicles Available</h3>
+                                        <h3 class="title-5 m-b-35">Vehicles Serviceable</h3>
                                         <div class="table-responsive table-responsive-data2">
                                             <table class="table table-data2">
                                                 <thead>
@@ -165,6 +165,64 @@
                             </div>
                         </section>
                         <!-- Process List END-->
+                        <!--Not Available List START-->
+                        <section class="p-t-20">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="title-5 m-b-35">Vehicles Non Serviceable</h3>
+                                        <div class="table-responsive table-responsive-data2">
+                                            <table class="table table-data2">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Categories</th>
+                                                        <th>Types</th>
+                                                        <th>Status</th>
+                                                        <th>Quantity</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% const groupedVehiclesNotAvailable = {}; %>
+                                                    <% let totalQuantityNotAvailable = 0; %>
+                                                    <% vehicles.forEach(vehicle => {
+                                                        if (vehicle.status === 'not available') {
+                                                            const key = `${vehicle.type}-${vehicle.category}`; // Unique key combining type and category
+                                                            if (!groupedVehiclesNotAvailable[key]) {
+                                                                groupedVehiclesNotAvailable[key] = {
+                                                                    type: vehicle.type,
+                                                                    category: vehicle.category,
+                                                                    qty: vehicle.qty,
+                                                                    status: vehicle.status
+                                                                };
+                                                            } else {
+                                                                groupedVehiclesNotAvailable[key].qty += vehicle.qty;
+                                                            }
+                                                            totalQuantityNotAvailable += vehicle.qty;
+                                                        }
+                                                    }); %>
+
+                                                    <% Object.values(groupedVehiclesNotAvailable).forEach(vehicle => { %>
+                                                        <tr>
+                                                            <td><%= vehicle.category %></td>
+                                                            <td class="desc"><%= vehicle.type %></td>
+                                                            <td><span class="status--<%= vehicle.status %>"><%= vehicle.status %></span></td>
+                                                            <td ><%= vehicle.qty %></td>
+                                                        </tr>
+                                                    <% }); %>
+                                                    <tr class="spacer"></tr>
+                                                    <tr>
+                                                        <td colspan="3" class="text-left"><strong>Total</strong></td>
+                                                        <td colspan="1"><%= totalQuantityNotAvailable %></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!--Not Available List END-->
                         <!-- Deployed List START-->
                         <section class="p-t-80">
                             <div class="container">

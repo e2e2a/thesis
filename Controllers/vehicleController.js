@@ -614,3 +614,23 @@ module.exports.vehicleDoUpdate = async (req, res) => {
         console.log(error);
     }
 }
+
+module.exports.vehicleDelete = async (req,res) => {
+    const vehicleId = req.body.vehicleId;
+    const userId = req.session.login;
+    const user = await User.findById(userId);
+
+    if (user.role === 'admin'){
+        const vehicleDeleted = await Vehicle.findByIdAndDelete(vehicleId);
+        if(vehicleDeleted){
+            req.flash('message', 'Vehicle been Deleted!');
+            return res.redirect('/dashboard');
+        }
+    } else{
+        const vehicleDeleted = await Vehicle.findByIdAndDelete(vehicleId);
+        if(vehicleDeleted){
+            req.flash('message', 'Vehicle been Deleted!');
+            return res.redirect('/vehicles');
+        }
+    }
+}

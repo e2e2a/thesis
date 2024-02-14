@@ -116,7 +116,7 @@
                                     <!-- END request Approval list TABLE-->
 
                                     <% if (reqForms && reqForms.length > 0 && reqForms.some(reqForm => reqForm.status === 'approved')) { %>
-                                    <!-- all Request start-->
+                                    <!-- all Request approved start-->
                                     <section class="p-t-50">
                                         <div class="container">
                                             <div class="row">
@@ -155,7 +155,7 @@
                                                                     <th>form</th>
                                                                     <th>status</th>
                                                                     <th>requestor</th>
-                                                                    <th>Actions</th>
+                                                                    
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -182,9 +182,77 @@
                                             </div>
                                         </div>
                                     </section>
-                                    <!-- all Request end-->
+                                    <!-- all Request approved end-->
                                     <% } %>
-
+                                    <% if (reqForms && reqForms.length > 0 && reqForms.some(reqForm => reqForm.status === 'settled')) { %>
+                                        <!-- all Request Settled start-->
+                                        <section class="p-t-50">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h3 class="title-5 m-b-35">Settled Request</h3>
+                                                        <div class="table-data__tool">
+                                                            <div class="table-data__tool-left">
+                                                                <div class="rs-select2--light rs-select2--md">
+                                                                    <select class="js-select2" name="property">
+                                                                        <option selected="selected">All Properties</option>
+                                                                        <option value="">Option 1</option>
+                                                                        <option value="">Option 2</option>
+                                                                    </select>
+                                                                    <div class="dropDownSelect2"></div>
+                                                                </div>
+                                                                <div class="rs-select2--light rs-select2--sm">
+                                                                    <select class="js-select2" name="time">
+                                                                        <option selected="selected">Today</option>
+                                                                        <option value="">3 Days</option>
+                                                                        <option value="">1 Week</option>
+                                                                    </select>
+                                                                    <div class="dropDownSelect2"></div>
+                                                                </div>
+                                                                <button class="au-btn-filter">
+                                                                    <i class="zmdi zmdi-filter-list"></i>filters</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="table-responsive table-responsive-data2">
+                                                            <table class="table table-data2 text-center">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Requested By</th>
+                                                                        <th>assign</th>
+                                                                        <th>email</th>
+                                                                        <th>date approved</th>
+                                                                        <th>form</th>
+                                                                        <th>status</th>
+                                                                        <th>requestor</th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <!-- request && modal Loop start -->
+                                                                    <% if(reqForms && reqForms.length > 0) { %>
+                                                                        <% for (let i = 0; i < reqForms.length; i++) { %>
+                                                                            <% const reqForm = reqForms[i]; %>
+                                                                            <% if(reqForm.status === 'settled') { %>
+                                                                                <% const user = users.find(user => user._id.toString() === reqForm.userId.toString()); %>
+                                                                                <% if(user) { %>
+                                                                                    <!-- Include the partial template -->
+                                                                                    <%- include('partials/request_form/admin_single_form_remove.ejs', { reqForm: reqForm, user: user }); %>
+                                                                                <% } %>
+                                                                            <% } %>
+                                                                        <% } %>
+                                                                    <% } else { %>
+                                                                        <p>No requests found.</p>
+                                                                    <% } %>
+                                                                    <!-- request && modal Loop end -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- all Request Settled end-->
+                                        <% } %>
                                     <!-- request modal start -->
                                     <%- include('./partials/modal/modal_request.ejs', { vehicles:vehicles}); %>
                                         <!-- request modal end-->
