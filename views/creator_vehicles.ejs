@@ -252,7 +252,7 @@
                         </section>
                         <!-- Process List END-->
                         <!--Not Available List START-->
-                        <section class="p-t-20">
+                        <section class="p-t-80">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -401,10 +401,20 @@
                                                 <button class="au-btn-filter">  <i class="zmdi zmdi-filter-list"></i>filters</button>
                                             </div>
                                             <div class="table-data__tool-right">
-                                                <button
-                                                    class="au-btn au-btn-icon au-btn--green au-btn--small"
-                                                    data-toggle="modal" data-target="#createVehicle">
-                                                    <i class="zmdi zmdi-plus"></i>add Car</button>
+                                                    <form action="print" method="post">
+                                                        <select name="month" id="month" required>
+                                                            <option value="" hidden>Select month</option>
+                                                            <option value="01">January</option>
+                                                            <option value="02">February</option>
+                                                        </select>
+                                                        <select name="year" id="year" required>
+                                                            <option value="" hidden>Select Year</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2025">2025</option>
+                                                        </select>
+                                                        <button type="submit"  class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                                            <i class="zmdi zmdi-print"></i>PRINT</button>
+                                                    </form>
                                             </div>
                                         </div>
 
@@ -414,17 +424,19 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Assign Personel</th>
+                                                            <th>Date Issued</th>
                                                             <th>brand</th>
                                                             <th>category</th>
                                                             <th>type</th>
+                                                            <th>OR/CR/MIR</th>
+                                                            <th>plateNumber</th>
                                                             <th>model</th>
-                                                            <th>status</th>
-                                                            <th>Actions</th>
+                                                            <th>Condition</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <% vehicles.forEach(vehicle=> { %>
-                                                            <%- include('./partials/vehicle/creator_single_vehicle.ejs', {vehicle: vehicle}); %>
+                                                            <%- include('./partials/vehicle/creator_all_vehicle.ejs', {vehicle: vehicle}); %>
                                                         <% }); %>
                                                     </tbody>
                                                 </table>

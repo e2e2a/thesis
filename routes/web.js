@@ -4,7 +4,8 @@ const loginController = require('../Controllers/loginController');
 const vehicleController = require('../Controllers/vehicleController');
 const creatorController = require('../Controllers/creatorController');
 const adminController = require('../Controllers/adminController');
-const profileController =require('../Controllers/profileController')
+const profileController =require('../Controllers/profileController');
+const AllvehiclesController = require('../Controllers/AllvehiclesController');
 module.exports = function(app){
 
     app.get('/', indexController.index);
@@ -40,6 +41,7 @@ module.exports = function(app){
     //deleteformRequest
     app.post('/deleteRequestForm', requestController.formDelete);
     app.post('/deleteForm', requestController.formDeleteMember);
+    app.post('/print', AllvehiclesController.print)
     //Utilities
     app.get('/alert', (req,res) => {
         res.render('alert')
