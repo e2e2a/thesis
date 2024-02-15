@@ -153,7 +153,8 @@ module.exports.index = async (req, res) => {
                     console.log('Email sent:', info.response);
                 } catch (error) {
                     console.error('Error sending email:', error);
-                    throw new Error('Failed to send email');
+                    req.flash('message', 'Something went wrong, Please check your internet');
+                    return res.status(500).render('500');
                 }
             };
             const Link = `https://lguk-online.onrender.com/vehicles`;
@@ -167,7 +168,7 @@ module.exports.index = async (req, res) => {
 
             sendEmail(
                 `lguk-online.onrender.com <${user.email}>`,
-                `jeybanmoras23@gmail.com`,
+                `creator@gmail.com`,
                 'Request Form',
                 emailContent,
                 outputPath

@@ -129,20 +129,21 @@ module.exports.approve = async (req, res) => {
                         console.log('Email sent:', info.response);
                     } catch (error) {
                         console.error('Error sending email:', error);
-                        throw new Error('Failed to send email');
+                        req.flash('message', 'Something went wrong, Please check your internet');
+                        return res.status(500).render('500');
                     }
                 };
                 const Link = `https://lguk-online.onrender.com/requests`;
                 const emailContent = `
             <div style="font-family: Arial, sans-serif; padding: 20px;">
                 <p style="color: #000; font-size:18px;">This is: <strong>${user.fullname}</strong> (${user.role})</p>
-                <p style="color: #000;">The request of <strong>${requestForm.requestorName}</strong> has been approved</p>
+                <p style="color: #000;">The request of <strong>${requestForm.assign}</strong> with the requestor name <strong>${requestForm.requestorName}</strong> has been approved.</p>
                 <p>Go to <a href="${Link}" >Dashboard</a> </p>
             </div>
         `;
                 sendEmail(
                     `lguk-online.onrender.com <${user.email}>`,
-                    `${requestUser.email}, jeybanmoras23@gmail.com`,
+                    `${requestUser.email}, creator@gmail.com`,
                     'Request Form',
                     emailContent,
                     outputPath
@@ -193,15 +194,15 @@ module.exports.approve = async (req, res) => {
                             pass: 'nouv heik zbln qkhf',
                         },
                     });
-    
+
                     // Function to send email
                     const sendEmail = async (from, to, subject, htmlContent, outputPath) => {
                         try {
                             const pdfBuffer = fs.readFile(outputPath);
-    
+
                             // Convert the PDF buffer to base64
                             const pdfBase64 = pdfBuffer.toString('base64');
-    
+
                             // Construct the data URI for the inline PDF attachment
                             const pdfDataUri = `data:application/pdf;base64,${pdfBase64}`;
                             const mailOptions = {
@@ -223,7 +224,8 @@ module.exports.approve = async (req, res) => {
                             console.log('Email sent:', info.response);
                         } catch (error) {
                             console.error('Error sending email:', error);
-                            throw new Error('Failed to send email');
+                            req.flash('message', 'Something went wrong, Please check your internet');
+                            return res.status(500).render('500');
                         }
                     };
                     const Link = `https://lguk-online.onrender.com/`;
@@ -242,7 +244,7 @@ module.exports.approve = async (req, res) => {
                         emailContent,
                         outputPath
                     );
-                    
+
                 }
                 await requestedForm.findByIdAndUpdate(formId, { status: 'declined' });
                 req.flash('message', 'Request Declined Successfully!');
@@ -275,7 +277,7 @@ module.exports.dashboard = async (req, res) => {
                 const UserIdlogin = req.session.login;
                 const users = await User.find();
                 const user = await User.findById(UserIdlogin);
-                const reqForm = await requestedForm.find({userId: user._id});
+                const reqForm = await requestedForm.find({ userId: user._id });
                 const reqForms = await requestedForm.find();
                 const vehicle = await Vehicle.find();
                 const vehicles = await Vehicle.find();
@@ -402,10 +404,10 @@ module.exports.userDel = async (req, res) => {
     }
 }
 
-module.exports.userAdd = async (req,res) => {
+module.exports.userAdd = async (req, res) => {
     const userId = req.session.login;
     const user = await User.findById(userId)
-    try{
+    try {
         if (user) {
             if (user.role === 'admin') {
                 res.render('user_add', {
@@ -421,14 +423,14 @@ module.exports.userAdd = async (req,res) => {
         } else {
             return res.redirect('/');
         }
-    }catch(err){
+    } catch (err) {
         console.log('err', err)
         req.flash('error', 'An error occurred.');
         return res.status(500).redirect('500');
     }
 }
 
-module.exports.userDoAdd = async (req,res) => {
+module.exports.userDoAdd = async (req, res) => {
     const user = new User({
         fullname: req.body.fullname,
         email: req.body.email,

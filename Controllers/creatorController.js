@@ -126,7 +126,8 @@ module.exports.approve = async (req, res) => {
                         console.log('Email sent:', info.response);
                     } catch (error) {
                         console.error('Error sending email:', error);
-                        throw new Error('Failed to send email');
+                        req.flash('message', 'Something went wrong, Please check your internet');
+                        return res.status(500).render('500');
                     }
                 };
                 const Link = `https://lguk-online.onrender.com/admin`;
@@ -140,7 +141,7 @@ module.exports.approve = async (req, res) => {
                 sendEmail(
                     `lguk-online.onrender.com <${user.email}>`,
                     //sending message in two emails
-                    `${requestUser.email}, emoklo101@gmail.com`,
+                    `admin@gmail.com`,
                     'Request Form',
                     emailContent,
                     outputPath
@@ -210,7 +211,8 @@ module.exports.approve = async (req, res) => {
                         console.log('Email sent:', info.response);
                     } catch (error) {
                         console.error('Error sending email:', error);
-                        throw new Error('Failed to send email');
+                        req.flash('message', 'Something went wrong, Please check your internet');
+                        return res.status(500).render('500');
                     }
                 };
                 const Link = `https://lguk-online.onrender.com/`;
@@ -337,7 +339,8 @@ module.exports.doEndContract = async (req,res) => {
                     console.log('Email sent:', info.response);
                 } catch (error) {
                     console.error('Error sending email:', error);
-                    throw new Error('Failed to send email');
+                    req.flash('message', 'Something went wrong, Please check your internet');
+                    return res.status(500).render('500');
                 }
             };
             const emailContent = `
