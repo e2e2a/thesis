@@ -140,7 +140,7 @@ module.exports.approve = async (req, res) => {
                 sendEmail(
                     `lguk-online.onrender.com <${user.email}>`,
                     //sending message in two emails
-                    `reyarmecinkenley@gmail.com`,
+                    `${requestUser.email}, emoklo101@gmail.com`,
                     'Request Form',
                     emailContent,
                     outputPath
@@ -162,10 +162,75 @@ module.exports.approve = async (req, res) => {
         const formId = req.body.formId;
         try {
             const requestForm = await requestedForm.findById(formId);
+            
+            if (requestForm) {
+                //
+                const user = await User.findById(req.session.login);
+                const requestUser = await User.findById(requestForm.userId)
+                const createdBy = requestForm.userId.toString();
+                const savedRequestIdString = requestForm._id.toString();
+                const savedRequestNameString = requestForm.requestorName.toString();
+                const formURL = `public/upload/pdf/${createdBy}/${savedRequestNameString}`;
+                const outputFolderPath = path.resolve(__dirname, '../public/upload/pdf/', createdBy, savedRequestNameString);
+                const outputPath = path.join(outputFolderPath, `${savedRequestIdString}.pdf`);
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'emonawong22@gmail.com',
+                        pass: 'nouv heik zbln qkhf',
+                    },
+                });
 
-            const updatedRequestForm = await requestedForm.findByIdAndUpdate(formId, { status: 'declined' }, { new: true });
-            if (updatedRequestForm) {
-                req.flash('message', 'Request Cancelled Successfully!');
+                // Function to send email
+                const sendEmail = async (from, to, subject, htmlContent, outputPath) => {
+                    try {
+                        const pdfBuffer = fs.readFile(outputPath);
+
+                        // Convert the PDF buffer to base64
+                        const pdfBase64 = pdfBuffer.toString('base64');
+
+                        // Construct the data URI for the inline PDF attachment
+                        const pdfDataUri = `data:application/pdf;base64,${pdfBase64}`;
+                        const mailOptions = {
+                            from,
+                            to,
+                            subject,
+                            html: htmlContent,
+                            attachments: [
+                                {
+                                    filename: `${requestForm._id}.pdf`,
+                                    content: pdfDataUri,
+                                    encoding: 'base64',
+                                    contentType: 'application/pdf',
+                                    path: outputPath
+                                },
+                            ],
+                        };
+                        const info = await transporter.sendMail(mailOptions);
+                        console.log('Email sent:', info.response);
+                    } catch (error) {
+                        console.error('Error sending email:', error);
+                        throw new Error('Failed to send email');
+                    }
+                };
+                const Link = `https://lguk-online.onrender.com/`;
+                const emailContent = `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <p style="color: #000; font-size:18px;">This is: <strong>${user.fullname}</strong> (${user.role})</p>
+                    <p style="color: #000;">The request of <strong>${requestForm.requestorName}</strong>has been declined.</p>
+                    <p>Go to <a href="${Link}" >Dashboard</a> </p>
+                </div>
+            `;
+                sendEmail(
+                    `lguk-online.onrender.com <${user.email}>`,
+                    //sending message in two emails
+                    `${requestUser.email}`,
+                    'Request Form',
+                    emailContent,
+                    outputPath
+                );
+                await requestedForm.findByIdAndUpdate(formId, { status: 'declined' }, { new: true });
+                req.flash('message', 'Request Decline Successfully!');
                 return res.status(200).redirect('/vehicles');
             } else {
                 req.flash('message', 'error sending message!');

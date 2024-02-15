@@ -27,8 +27,36 @@
             tr:hover {
                 background-color: #e2e2e2;
             }
+            h3{
+                
+                text-align: center;
+            }
         </style>
-        
+            <% if(month === 01) {%>
+                <h3>January, <%= year %></h3>
+                <% }else if(month === 02) {%>
+                <h3>February, <%= year %></h3>
+                <% }else if(month === 03) {%>
+                <h3>March, <%= year %></h3>
+                <% }else if(month === 04) {%>
+                <h3>April, <%= year %></h3>
+                <% }else if(month === 05) {%>
+                <h3>May, <%= year %></h3>
+                <% }else if(month === 06) {%>
+                <h3>June, <%= year %></h3>
+                <% }else if(month === 07) {%>
+                <h3>July, <%= year %></h3>
+                <% }else if(month === 08) {%>
+                <h3>August, <%= year %></h3>
+                <% }else if(month === 09) {%>
+                <h3>September, <%= year %></h3>
+                <% }else if(month === 10) {%>
+                <h3>October, <%= year %></h3>
+                <% }else if(month === 11) {%>
+                <h3>November, <%= year %></h3>
+                <% }else if(month === 12) {%>
+                <h3>December, <%= year %></h3>
+                <% }%>
             <table>
                 <thead>
                     <tr>
