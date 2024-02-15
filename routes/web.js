@@ -14,7 +14,7 @@ module.exports = function(app){
     app.get('/login', loginController.index);
     app.post('/login', loginController.submit);
     app.post('/logout', loginController.logout);
-    app.post('/create/vehicle', vehicleController.doCreate)
+    app.post('/createvehicle', vehicleController.doCreate);//change it to 1 word
     app.get('/vehicles',creatorController.index);
     app.post('/vehicles/approval',creatorController.approve);
     app.post('/vehicles/remove', creatorController.remove);

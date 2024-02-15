@@ -137,7 +137,7 @@ module.exports.approve = async (req, res) => {
                 const emailContent = `
             <div style="font-family: Arial, sans-serif; padding: 20px;">
                 <p style="color: #000; font-size:18px;">This is: <strong>${user.fullname}</strong> (${user.role})</p>
-                <p style="color: #000;">The request of <strong>${requestForm.assign}</strong> with the requestor name <strong>${requestForm.requestorName}</strong> has been approved.</p>
+                <p style="color: #000;">The request of <strong>${requestUser.assign}</strong> with the requestor name <strong>${requestForm.requestorName}</strong> has been approved.</p>
                 <p>Go to <a href="${Link}" >Dashboard</a> </p>
             </div>
         `;
