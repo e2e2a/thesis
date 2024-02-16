@@ -22,7 +22,7 @@ module.exports.userEdit = async (req,res) => {
     } catch (error) {
         console.log('error:', error);
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }
 
@@ -100,6 +100,6 @@ module.exports.userDoEdit = async (req, res) => {
     } catch (error) {
         console.error('Error updating user:', error);
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }

@@ -46,7 +46,7 @@ module.exports.index = async (req, res) => {
     } catch (err) {
         console.log('err:', err);
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }
 module.exports.requests = async (req, res) => {
@@ -90,6 +90,6 @@ module.exports.requests = async (req, res) => {
     } catch (err) {
         console.log('err:', err);
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }

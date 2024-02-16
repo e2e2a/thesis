@@ -34,6 +34,7 @@
         <% if(reqForm.status === 'pending') {%>
         <form action="deleteForm" method="post">
             <div class="table-data-feature justify-content-center">
+                <input type="hidden" name="formId" id="formId" value="<%= reqForm._id %>">
                 <button type="submit" class="item delete" data-toggle="tooltip"
                     data-placement="top" title="Delete">
                     <i class="zmdi zmdi-delete"></i>
@@ -45,6 +46,7 @@
         <% } else if(reqForm.status === 'settled') {%>
             <form action="deleteForm" method="post">
                 <div class="table-data-feature justify-content-center">
+                    <input type="hidden" name="formId" id="formId" value="<%= reqForm._id %>">
                     <button type="submit" class="item delete" data-toggle="tooltip"
                         data-placement="top" title="Delete">
                         <i class="zmdi zmdi-delete"></i>
@@ -54,6 +56,7 @@
         <% } else if(reqForm.status === 'declined') {%>
             <form action="deleteForm" method="post">
                 <div class="table-data-feature justify-content-center">
+                    <input type="hidden" name="formId" id="formId" value="<%= reqForm._id %>">
                     <button type="submit" class="item delete" data-toggle="tooltip"
                         data-placement="top" title="Delete">
                         <i class="zmdi zmdi-delete"></i>

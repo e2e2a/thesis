@@ -44,17 +44,17 @@ module.exports.index = async (req, res) => {
             qty: req.body.qty[vehicleId]
         }));
         console.log('Selected Vehicle IDs:', AllSelectedVehicles);
-        const noVehicleSelected = AllSelectedVehicles.some(vehicle => vehicle.vehicleId === undefined || vehicle.qty === undefined);
         const user = await User.findById(req.session.login);
+        const noVehicleSelected = AllSelectedVehicles.some(vehicle => vehicle.vehicleId === undefined || vehicle.qty === undefined);
         if (noVehicleSelected) {
             if (user.role === 'member') {
                 console.log('No Vehicle Selected');
-                req.flash('message', 'No Vehicles Available')
-                return res.render('/');
+                req.flash('message', 'No Vehicles Selected')
+                return res.redirect('/');
             } else {
                 console.log('No Vehicle Selected');
-                req.flash('message', 'No Vehicles Available')
-                return res.render('/dashboard');
+                req.flash('message', 'No Vehicles Selected')
+                return res.redirect('/dashboard');
             }
         }
         const formData = new reqForm({
@@ -221,10 +221,10 @@ module.exports.formDeleteMember = async (req, res) => {
         const formDeleted = await reqForm.findByIdAndDelete(formId);
         if (formDeleted) {
             req.flash('message', 'Request Form Deleted');
-            return res.redirect('/requests');
+            return res.redirect('/');
         } else {
             req.flash('message', 'Request Form Failed to Deleted');
-            return res.redirect('/requests');
+            return res.redirect('/');
         }
     }
 }

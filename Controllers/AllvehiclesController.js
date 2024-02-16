@@ -46,7 +46,7 @@ if (isNaN(month)) {
     } catch (err) {
         console.log('err:', err);
         req.flash('message', 'Internal error occured.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 } else {
     const vehicles = await Vehicle.find();
@@ -92,7 +92,7 @@ if (isNaN(month)) {
         } catch (err) {
             console.log('err:', err);
             req.flash('message', 'Internal error occured.');
-            return res.status(500).redirect('500');
+            return res.status(500).render('500');
         }
     
 }

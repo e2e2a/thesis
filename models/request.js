@@ -34,8 +34,8 @@ var schema = mongoose.Schema({
         trim: false
     },
     selectedVehicle: [{
-        vehicleId: String, // Assuming vehicleId is a string
-        qty: Number, // Assuming qty is a number
+        vehicleId: String,
+        qty: Number,
     }],
     status: {
         type: String,

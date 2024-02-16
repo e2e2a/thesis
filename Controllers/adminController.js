@@ -52,7 +52,7 @@ module.exports.index = async (req, res) => {
     } catch (err) {
         console.log('err:', err);
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }
 
@@ -302,7 +302,7 @@ module.exports.dashboard = async (req, res) => {
         }
     } catch (err) {
         console.log('err:', err);
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }
 
@@ -332,7 +332,7 @@ module.exports.userEdit = async (req, res) => {
     } catch (error) {
         console.log('error:', error)
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }
 
@@ -400,7 +400,7 @@ module.exports.userDel = async (req, res) => {
     } catch (error) {
         console.error('Error deleting user:', error);
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }
 
@@ -426,7 +426,7 @@ module.exports.userAdd = async (req, res) => {
     } catch (err) {
         console.log('err', err)
         req.flash('error', 'An error occurred.');
-        return res.status(500).redirect('500');
+        return res.status(500).render('500');
     }
 }
 
