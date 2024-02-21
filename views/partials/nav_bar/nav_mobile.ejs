@@ -19,44 +19,37 @@
             <ul class="navbar-mobile__list list-unstyled">
                 <li class="has-sub">
                     <% if(user.role === 'member') { %>
-                    <a class="js-arrow" href="#">
-                        <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li>
-                            <a href="/requests">Dashboard</a>
-                        </li>
-                    </ul>
+                    <li>
+                        <a href="/">
+                            <i class="fas fa-home"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="/requests">
+                            <i class="fas fa-copy"></i>Requests</a>
+                    </li>
                     <% } %>
                     <% if(user.role === 'creator') { %>
-                    <a class="js-arrow" href="#">
-                        <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                        <li>
-                            <a href="/vehicles">Home</a>
-                        </li>
-                        <li>
-                            <a href="/inventory">Dashboard</a>
-                        </li>
-                    </ul>
+                    <li>
+                        <a href="/vehicles">
+                            <i class="fas fa-home"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="/inventory">
+                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
                     <% } %>
                     <% if(user.role === 'admin') { %>
-                    <a class="js-arrow" href="#">
-                        <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                        <li>
-                            <a href="/admin">Home</a>
-                        </li>
-                        <li>
-                            <a href="/dashboard">Dashboard</a>
-                        </li>
-                    </ul>
+                    <li>
+                        <a href="/admin">
+                            <i class="fas fa-home"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard">
+                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
                     <% } %>
-                    
                 </li>
-                <li>
+                <!-- <li>
                     <a href="">
                         <i class="fas fa-trophy"></i>Features</a>
                 </li>
@@ -68,7 +61,7 @@
                             <a href="/login">Login</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
     </nav>

@@ -15,9 +15,15 @@ const year = parseInt(req.body.year);
 
 if (isNaN(month)) {
     const vehicles = await Vehicle.find();
+    const filteredVehicles = vehicles.filter(vehicle => {
+        // Split the dateIssued string into components
+        const [mm, dd, yyyy] = vehicle.dateIssued.split('-');
+        // Convert to numbers and compare with the provided year
+        return parseInt(yyyy) === year;
+    });
     const templatePath = path.join(__dirname, '../views/pdf/pdf-print-all.ejs');
     const templateContent = await fs.readFile(templatePath, 'utf-8');
-    const html = ejs.render(templateContent, { vehicles: vehicles, year:year, });
+    const html = ejs.render(templateContent, { vehicles: filteredVehicles, year:year, });
     try {
         const browser = await puppeteer.launch({
             ...puppeteerConfig,

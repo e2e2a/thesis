@@ -4,7 +4,7 @@ const startServer = async () => {
   try {
       const usersData = [
         //creation
-        { fullname: 'admin', email: 'admin@gmail.com', contact: '1234567890', address: '123 Main St', role:'admin', assign: 'Barangay Estaka', password: 'password123',},
+        { fullname: 'admin', email: 'admin@gmail.com', contact: '1234567890', address: '123 Main St', role:'admin', assign: 'Mayor', password: 'password123',},
         { fullname: 'MON MON', email: 'example@gmail.com', contact: '1234567890', address: '123 Main St', role:'member', assign: 'Barangay Miputak', password: 'password123',},
         { fullname: 'MON1 MON', email: 'example1@gmail.com', contact: '1234567890', address: '123 Main St', role:'member', assign: 'Barangay Barra', password: 'password123',},
         { fullname: 'MON2 MON', email: 'example2@gmail.com', contact: '1234567890', address: '123 Main St', role:'member', assign: 'Barangay Biasong', password: 'password123',},

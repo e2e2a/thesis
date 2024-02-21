@@ -19,7 +19,7 @@
                                             <span class="au-breadcrumb-span">You are here:</span>
                                             <ul class="list-unstyled list-inline au-breadcrumb__list">
                                                 <li class="list-inline-item active">
-                                                    <a href="#">Home</a>
+                                                    <a href="">Home</a>
                                                 </li>
                                                 <li class="list-inline-item seprate">
                                                     <span>/</span>
@@ -141,7 +141,7 @@
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vehicles Serviceable</h3>
                                         <div class="table-responsive table-responsive-data2">
-                                            <table class="table table-data2">
+                                            <table class="table table-data2" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
                                                         <th>Categories</th>
@@ -200,7 +200,7 @@
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vehicles Process</h3>
                                         <div class="table-responsive table-responsive-data2">
-                                            <table class="table table-data2">
+                                            <table class="table table-data2" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
                                                         <th>Categories</th>
@@ -258,7 +258,7 @@
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vehicles Non Serviceable</h3>
                                         <div class="table-responsive table-responsive-data2">
-                                            <table class="table table-data2">
+                                            <table class="table table-data2" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
                                                         <th>Categories</th>
@@ -316,7 +316,7 @@
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vehicles Deployed</h3>
                                         <div class="table-responsive table-responsive-data2">
-                                            <table class="table table-data2">
+                                            <table class="table table-data2" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
                                                         <th>Categories</th>
@@ -376,34 +376,12 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Vechicles</h3>
-                                        <div class="table-data__tool">
-                                            <div class="table-data__tool-left">
-                                                <div class="rs-select2--light rs-select2--md">
-                                                    <select id="categorySelect" class="js-select2" name="property" onchange="filterVehicles()">
-                                                        <option  value="All Categories" >All Categories
-                                                        </option>
-                                                        <option value="Motorcycle Vehicles">Motorcycle</option>
-                                                        <option value="Military Vehicles">Military</option>
-                                                        <option value="Heavy Equipment Vehicles">Heavy Equipment</option>
-                                                        <option value="4-Wheel Vehicles">4-Wheel</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <div class="rs-select2--light rs-select2--sm">
-                                                    <select id="statusSelect" class="js-select2" name="time" onchange="filterVehicles()">
-                                                        <option value="All Status">All Status</option>
-                                                        <option value="available">Available</option>
-                                                        <option value="deployed">Deployed</option>
-                                                        <option value="process">Process</option>
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                                <button class="au-btn-filter">  <i class="zmdi zmdi-filter-list"></i>filters</button>
-                                            </div>
-                                            <div class="table-data__tool-right">
-                                                    <form action="print" method="post">
-                                                        <select name="month" id="month" required>
-                                                            <option value="" hidden>Select month</option>
+                                        <form action="print" method="post">
+                                            <div class="table-data__tool">
+                                                <div class="table-data__tool-left">
+                                                    <div class="rs-select2--light rs-select2--md">
+                                                        <select id="month" class="js-select2" name="month">
+                                                            <option value="" hidden>Select Month</option>
                                                             <option value="All">All</option>
                                                             <option value="01">January</option>
                                                             <option value="02">February</option>
@@ -418,7 +396,10 @@
                                                             <option value="11">November</option>
                                                             <option value="12">Decembeer</option>
                                                         </select>
-                                                        <select name="year" id="year" required>
+                                                        <div class="dropDownSelect2"></div>
+                                                    </div>
+                                                    <div class="rs-select2--light rs-select2--md">
+                                                        <select id="year" class="js-select2" name="year" required>
                                                             <option value="" hidden>Select Year</option>
                                                             <option value="2024">2024</option>
                                                             <option value="2025">2025</option>
@@ -427,15 +408,15 @@
                                                             <option value="2028">2028</option>
                                                             <option value="2029">2029</option>
                                                         </select>
-                                                        <button type="submit"  class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                                            <i class="zmdi zmdi-print"></i>PRINT</button>
-                                                    </form>
+                                                        <div class="dropDownSelect2"></div>
+                                                    </div>
+                                                    <button class="au-btn-filter">  <i class="zmdi zmdi-print"></i>PRINT</button>
+                                                </div>
                                             </div>
-                                        </div>
-
+                                        </form>
                                         <% if(vehicles && vehicles.length > 0) { %>
                                             <div class="table-responsive table-responsive-data2">
-                                                <table id="vehicleTable" class="table table-data2 text-center">
+                                                <table id="vehicleTable" class="table table-data2 text-center" style="white-space: nowrap;">
                                                     <thead>
                                                         <tr>
                                                             <th>Assign Personel</th>
@@ -462,27 +443,12 @@
                         </section>
                         <% } else { %>
                             <p class="text-center">No Vehicles Available.</p>
-                            <% } %>
+                        <% } %>
                         <!-- END All Vehicles data-->
                                     
-                                            <%- include('./partials/modal/modal_vehicle.ejs'); %>
+                            <%- include('./partials/modal/modal_vehicle.ejs'); %>
 
-
-                                                <!-- COPYRIGHT-->
-                                                <section class="p-t-60 p-b-20">
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="copyright">
-                                                                    <p>Copyright © 2018 Unknown. All rights
-                                                                        reserved.
-                                                                        Template by <a href="">Unknown</a>.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                                <!-- END COPYRIGHT-->
+                                <%- include('./partials/copyright/copyright.ejs'); %>
                 </div>
     </div>
     <%- include('partials/footer/footer.ejs'); %>

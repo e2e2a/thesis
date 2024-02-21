@@ -7,6 +7,7 @@ const requestedForm = require('../models/request');
 const Vehicle = require('../models/vehicle');
 const multer = require('multer');
 var fileUpload = require('../middlewares/profile-update-middleware');
+var bcrypt = require("bcrypt");
 
 module.exports.index = async (req, res) => {
     const login = req.session.login;
@@ -336,55 +337,104 @@ module.exports.userEdit = async (req, res) => {
     }
 }
 
+
 module.exports.userDoEdit = async (req, res) => {
-    const userId = req.params.id;
-    const user = await User.findById(userId);
-    var upload = multer({
-        storage: fileUpload.files.storage(),
-        allowedFile: fileUpload.files.allowedFile
-    }).single('image');
-    upload(req, res, async function (err) {
-        console.log('req.file', req.file);
-        if (err instanceof multer.MulterError) {
-            return res
-                .status(err.status || 400)
-                .render('400', { err: err });
-        } else if (err) {
-            console.log(err);
-            return res
-                .status(err.status || 500)
-                .render('500', { err: err });
-        } else {
-            let imageUrl = '';
-            if (user.imageURL) {
-                imageUrl = user.imageURL;
-            }
-            if (req.file) {
-                // If a file was uploaded, construct the new image URL
-                imageUrl = `/public/img/profile/${userId}/${req.file.filename}`;
-            }
-            const updateUser = {
-                fullname: req.body.fullname,
-                email: req.body.email,
-                contact: req.body.contact,
-                address: req.body.address,
-                assign: req.body.assign,
-                role: req.body.role,
-                imageURL: imageUrl
-            };
-            const updatedUser = await User.findByIdAndUpdate(user._id, updateUser, {
-                new: true
-            });
-            if (updatedUser) {
-                console.log('user updated profile', user._id);
-                req.flash('message', 'User Updated!')
-                return res.redirect('/dashboard');
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId);
+
+        // Multer upload
+        var upload = multer({
+            storage: fileUpload.files.storage(),
+            allowedFile: fileUpload.files.allowedFile
+        }).single('image');
+
+        upload(req, res, async function (err) {
+            if (err instanceof multer.MulterError) {
+                return res.status(err.status || 400).render('400', { err: err });
+            } else if (err) {
+                console.log(err);
+                return res.status(err.status || 500).render('500', { err: err });
             } else {
-                console.log('update failed');
+                let imageUrl = '';
+                if (user.imageURL) {
+                    imageUrl = user.imageURL;
+                }
+                if (req.file) {
+                    imageUrl = `/public/img/profile/${userId}/${req.file.filename}`;
+                }
+
+                const emailInputed = req.body.email;
+                const emailExist = await User.findOne({ email: req.body.email });
+
+                const password = req.body.password;
+                const confirmPassword = req.body.confirmPassword;
+
+                if (password !== confirmPassword) {
+                    req.flash('message', 'Password does not match.');
+                    return res.redirect(`/user/${user._id}`);
+                }
+
+                if (emailInputed === user.email) {
+                    const hashedPassword = await bcrypt.hash(password, 10);
+
+                    const updateUser = {
+                        fullname: req.body.fullname,
+                        email: req.body.email,
+                        contact: req.body.contact,
+                        address: req.body.address,
+                        assign: req.body.assign,
+                        role: req.body.role,
+                        imageURL: imageUrl,
+                        password: hashedPassword
+                    };
+
+                    const updatedUser = await User.findByIdAndUpdate(user._id, updateUser, { new: true });
+
+                    if (updatedUser) {
+                        console.log('User updated profile', user._id);
+                        req.flash('message', 'User Updated!');
+                        return res.redirect('/dashboard');
+                    } else {
+                        console.log('Update failed');
+                    }
+                } else {
+                    if (emailExist) {
+                        req.flash('message', 'Email is already used. Please provide another email.');
+                        return res.redirect(`/user/${user._id}`);
+                    }
+                    const hashedPassword = await bcrypt.hash(password, 10);
+
+                    const updateUser = {
+                        fullname: req.body.fullname,
+                        email: req.body.email,
+                        contact: req.body.contact,
+                        address: req.body.address,
+                        assign: req.body.assign,
+                        role: req.body.role,
+                        imageURL: imageUrl,
+                        password: hashedPassword
+                    };
+
+                    const updatedUser = await User.findByIdAndUpdate(user._id, updateUser, { new: true });
+
+                    if (updatedUser) {
+                        console.log('User updated profile', user._id);
+                        req.flash('message', 'User Updated!');
+                        return res.redirect('/dashboard');
+                    } else {
+                        console.log('Update failed');
+                    }
+                }
             }
-        }
-    });
-}
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        req.flash('message', 'An error occurred. Please try again.');
+        return res.redirect('/edit');
+    }
+};
+
 
 module.exports.userDel = async (req, res) => {
     const userId = req.body.userId;
@@ -431,6 +481,13 @@ module.exports.userAdd = async (req, res) => {
 }
 
 module.exports.userDoAdd = async (req, res) => {
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+
+    if (password !== confirmPassword) {
+        req.flash('message', 'Password does not match.');
+        return res.redirect(`/dashboard/user/create`);
+    }
     const user = new User({
         fullname: req.body.fullname,
         email: req.body.email,
@@ -447,6 +504,6 @@ module.exports.userDoAdd = async (req, res) => {
     }, () => {
         console.log('failed')
         req.flash('message', 'Failed to Create User!')
-        return res.redirect('/dashboard');
+        return res.redirect('/dashboard/user/create');
     });
 }

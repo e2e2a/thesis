@@ -5,7 +5,7 @@
                 <%= user.fullname %>
             </h6>
             <span>
-                <a href="#">
+                <a href="">
                     <%= user.email %>
                 </a>
             </span>
@@ -37,19 +37,19 @@
             </h6>
         </div>
     </td>
-    <td>
-        <div class="dropdown">
-            <span class="more justify-content-center" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="zmdi zmdi-more "></i>
-            </span>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <td class="text-center">
                 <form action="dashboard/user/delete" method="post">
                     <input type="hidden" name="userId" value="<%= user._id %>">
-                    <a class="dropdown-item" href="user/<%= user._id %>">Edit</a>
-                    <button class="dropdown-item">Delete</button>
-                </form>
-            </div>
-        </div>
+                <div class="table-data-feature text-center justify-content-center">
+                    <a href="user/<%= user._id %>" class="item" data-toggle="tooltip"
+                        data-placement="top" title="Edit">
+                        <i class="zmdi zmdi-edit"></i>
+                    </a>
+                    <button class="item" data-toggle="tooltip"
+                        data-placement="top" title="Delete">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </div>
+            </form>
     </td>
 </tr>

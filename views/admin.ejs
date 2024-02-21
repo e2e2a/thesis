@@ -162,7 +162,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="table-responsive table-responsive-data2">
-                                                        <table class="table table-data2 text-center">
+                                                        <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Requested By</th>
@@ -231,7 +231,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="table-responsive table-responsive-data2">
-                                                        <table class="table table-data2 text-center">
+                                                        <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Requested By</th>
@@ -300,7 +300,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="table-responsive table-responsive-data2">
-                                                            <table class="table table-data2 text-center">
+                                                            <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Requested By</th>
@@ -343,23 +343,9 @@
                                     <%- include('./partials/modal/modal_request.ejs', { vehicles:vehicles}); %>
                                         <!-- request modal end-->
 
-                                                <%- include('./partials/modal/modal_vehicle.ejs'); %>
+                                        <%- include('./partials/modal/modal_vehicle.ejs'); %>
 
-                                                    <!-- COPYRIGHT-->
-                                                    <section class="p-t-60 p-b-20">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="copyright">
-                                                                        <p>Copyright © 2018 Unknown. All rights
-                                                                            reserved.
-                                                                            Template by <a href="">Unknown</a>.</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </section>
-                                                    <!-- END COPYRIGHT-->
+                                        <%- include('./partials/copyright/copyright.ejs'); %>
                     </div>
         </div>
 

@@ -15,62 +15,47 @@ function activeClass(link) {
             <div class="header__navbar">
                 <ul class="list-unstyled">
                     <% if(user.role === 'member') {%>
-                    <li class="has-sub <%= activeClass('/') %> <%= activeClass('/requests') %>">
-                        <a href="#" >
-                            <i class="fas fa-tachometer-alt"></i>Dashboard
-                            <span class="bot-line"></span>
-                        </a>
-                        <ul class="header3-sub-list list-unstyled">
-                            <li>
-                                <a href="/" >Home</a>
-                            </li>
-                            <li>
-                                <a href="/requests">Dashboard</a>
-                            </li>
-                            
-                        </ul>
+                    <li class=" <%= activeClass('/') %>">
+                        <a href="/">
+                            <i class="fa fa-home"></i>
+                            <span class="bot-line"></span>Home</a>
+                    </li>
+                    <li class=" <%= activeClass('/requests') %>">
+                        <a href="/requests">
+                            <i class="fas fa-copy"></i>
+                            <span class="bot-line"></span>Requests</a>
                     </li>
                     <% } %>
                     <% if(user.role === 'creator') {%>
-                        <li class="has-sub <%= activeClass('/inventory') %> <%= activeClass('/vehicles') %>">
-                            <a href="#" >
-                                <i class="fas fa-tachometer-alt"></i>Dashboard
-                                <span class="bot-line"></span>
-                            </a>
-                            <ul class="header3-sub-list list-unstyled">
-                                <li>
-                                    <a href="/vehicles" >Home</a>
-                                </li>
-                                <li>
-                                    <a href="/inventory">Dashboard</a>
-                                </li>
-                                
-                            </ul>
+                        <li class=" <%= activeClass('/vehicles') %>">
+                            <a href="/vehicles">
+                                <i class="fa fa-home"></i>
+                                <span class="bot-line"></span>Home</a>
+                        </li>
+                        <li class=" <%= activeClass('/inventory') %>">
+                            <a href="/inventory">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span class="bot-line"></span>Dashboard</a>
                         </li>
                     <% } %>
                     <% if(user.role === 'admin') {%>
-                        <li class="has-sub <%= activeClass('/admin') %> <%= activeClass('/dashboard') %>">
-                            <a href="#" >
-                                <i class="fas fa-tachometer-alt"></i>Dashboard
-                                <span class="bot-line"></span>
-                            </a>
-                            <ul class="header3-sub-list list-unstyled">
-                                <li>
-                                    <a href="/admin" >Home</a>
-                                </li>
-                                <li>
-                                    <a href="/dashboard">Dashboard</a>
-                                </li>
-                                
-                            </ul>
+                        <li class=" <%= activeClass('/admin') %>">
+                            <a href="/admin">
+                                <i class="fa fa-home"></i>
+                                <span class="bot-line"></span>Home</a>
+                        </li>
+                        <li class=" <%= activeClass('/dashboard') %>">
+                            <a href="/dashboard">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span class="bot-line"></span>Dashboard</a>
                         </li>
                     <% } %>
-                    <li>
+                    <!-- <li>
                         <a href="">
                             <i class="fas fa-trophy"></i>
                             <span class="bot-line"></span>Features</a>
-                    </li>
-                    <li class="has-sub">
+                    </li> -->
+                    <!-- <li class="has-sub">
                         <a href="#">
                             <i class="fas fa-copy"></i>
                             <span class="bot-line"></span>Pages</a>
@@ -79,11 +64,11 @@ function activeClass(link) {
                                 <a href="/login">Login</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="header__tool">
-                <div class="header-button-item has-noti js-item-menu">
+                <!-- <div class="header-button-item has-noti js-item-menu">
                     <i class="zmdi zmdi-notifications"></i>
                     <div class="notifi-dropdown notifi-dropdown--no-bor js-dropdown">
                         <div class="notifi__title">
@@ -153,12 +138,12 @@ function activeClass(link) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="account-wrap">
                     <div class="account-item account-item--style2 clearfix js-item-menu">
                         <div class="image">
                             <% if (!user.imageURL) { %>
-                                <img src="public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
+                                <img src="/public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
                             <% } else { %>
                                 <img src="<%= user.imageURL %>" alt="<%= user.fullname %>" />
                             <% } %>
@@ -171,7 +156,7 @@ function activeClass(link) {
                                 <div class="image">
                                     <% if (!user.imageURL) { %>
                                     <a href="/profile">
-                                        <img src="public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
+                                        <img src="/public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
                                     </a>
                                     <% } else { %>
                                         <a href="/profile">
@@ -191,13 +176,13 @@ function activeClass(link) {
                                     <a href="/profile">
                                         <i class="zmdi zmdi-account"></i>Account</a>
                                 </div>
-                                <div class="account-dropdown__item">
+                                <!-- <div class="account-dropdown__item">
                                     <a href="">
                                         <i class="zmdi zmdi-settings"></i>Setting</a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="account-dropdown__footer">
-                                <form action="logout" method="post">
+                                <form action="/logout" method="post">
                                     <button type="submit">
                                     <i class="zmdi zmdi-power"></i>Logout</button>
                                 </form>

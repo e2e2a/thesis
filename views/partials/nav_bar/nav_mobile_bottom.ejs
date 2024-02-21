@@ -1,6 +1,6 @@
 <div class="sub-header-mobile-2 d-block d-lg-none">
     <div class="header__tool">
-        <div class="header-button-item has-noti js-item-menu">
+        <!-- <div class="header-button-item has-noti js-item-menu">
             <i class="zmdi zmdi-notifications"></i>
             <div class="notifi-dropdown notifi-dropdown--no-bor js-dropdown">
                 <div class="notifi__title">
@@ -70,12 +70,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="account-wrap">
             <div class="account-item account-item--style2 clearfix js-item-menu">
                 <div class="image">
                     <% if (!user.imageURL) { %>
-                        <img src="public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
+                        <img src="/public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
                     <% } else { %>
                         <img src="<%= user.imageURL %>" alt="<%= user.fullname %>" />
                     <% } %>
@@ -88,10 +88,10 @@
                         <div class="image">
                             <% if (!user.imageURL) { %>
                                 <a href="/profile">
-                                    <img src="public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
+                                    <img src="/public/img/profile/empty-profile.png" alt="<%= user.fullname %>" />
                                 </a>
                                 <% } else { %>
-                                    <a href="/profile">
+                                    <a href="profile">
                                         <img src="<%= user.imageURL %>" alt="<%= user.fullname %>" />
                                     </a>
                                 <% } %>
@@ -108,10 +108,10 @@
                             <a href="/profile">
                                 <i class="zmdi zmdi-account"></i>Account</a>
                         </div>
-                        <div class="account-dropdown__item">
+                        <!-- <div class="account-dropdown__item">
                             <a href="">
                                 <i class="zmdi zmdi-settings"></i>Setting</a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="account-dropdown__footer">
                         <form action="logout" method="post">

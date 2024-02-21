@@ -14,7 +14,7 @@ module.exports = function(app){
     app.get('/login', loginController.index);
     app.post('/login', loginController.submit);
     app.post('/logout', loginController.logout);
-    app.post('/createvehicle', vehicleController.doCreate);//change it to 1 word
+    app.post('/createvehicle', vehicleController.doCreate);
     app.get('/vehicles',creatorController.index);
     app.post('/vehicles/approval',creatorController.approve);
     app.post('/vehicles/remove', creatorController.remove);
@@ -43,15 +43,15 @@ module.exports = function(app){
     app.post('/deleteForm', requestController.formDeleteMember);
     app.post('/print', AllvehiclesController.print)
     //Utilities
-    app.get('/alert', (req,res) => {
-        res.render('alert')
-    });
-    app.get('/form', (req,res) => {
-        res.render('form', {
-            site_title: 'hello',
-            title: 'title'
-        })
-    });
+    // app.get('/alert', (req,res) => {
+    //     res.render('alert')
+    // });
+    // app.get('/form', (req,res) => {
+    //     res.render('form', {
+    //         site_title: 'hello',
+    //         title: 'title'
+    //     })
+    // });
     
     
    
