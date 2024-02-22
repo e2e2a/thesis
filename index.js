@@ -13,11 +13,14 @@ const app = express();
 const conn = dbConnect();
 
 const store = new MongoDBSessionStore({
-    uri: process.env.MONGODB_CONNECT_URI, // Replace with your MongoDB connection URI
-    collection: 'sessions' // Collection name to store sessions
+    uri: process.env.MONGODB_CONNECT_URI,
+    collection: 'sessions'
 });
 app.use(session({
     secret: 'sessionsecret777', 
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+      },
     resave: false,
     saveUninitialized: true,
     store: store,
@@ -31,7 +34,6 @@ app.use(function (req, res, next) {
     req.db = conn;
     next();
 });
-
 require('./routes/web')(app);
 app.use((req, res, next) => {
     if (!req.session.login) {
