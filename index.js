@@ -13,7 +13,7 @@ const app = express();
 const conn = dbConnect();
 
 const store = new MongoDBSessionStore({
-    uri: process.env.MONGODB_URI, // Replace with your MongoDB connection URI
+    uri: process.env.MONGODB_CONNECT_URI, // Replace with your MongoDB connection URI
     collection: 'sessions' // Collection name to store sessions
 });
 app.use(session({
