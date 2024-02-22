@@ -1,12 +1,12 @@
 {
   "name": "thesis",
   "version": "1.0.0",
-  "description": "CoolAdmin Bootstrap 4.1 Admin Dashboard Template ================================================",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "postinstall": "npx puppeteer browsers install chrome@v121.0.6167.85"
   },
   "keywords": [],
   "author": "",
