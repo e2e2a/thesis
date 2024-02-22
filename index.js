@@ -36,9 +36,19 @@ app.use(function (req, res, next) {
 });
 
 require('./routes/web')(app);
-app.use((req, res, next) => {
-    if (!req.session.login) {
+app.use(async(req, res, next) => {
+    const user = await User.findById(req.session.login);
+    if (!user) {
         return res.redirect('/login');
+    }
+    if (user.role === 'member') {
+        return res.redirect('/');
+    } else if (user.role === 'admin') {
+        return res.redirect('/admin');
+    } else if (user.role === 'creator') {
+        return res.redirect('/vehicles');
+    } else {
+        console.log('Unknown role logged in');
     }
     next();
 });
