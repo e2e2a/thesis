@@ -34,6 +34,7 @@ app.use(function (req, res, next) {
     req.db = conn;
     next();
 });
+
 require('./routes/web')(app);
 app.use((req, res, next) => {
     if (!req.session.login) {
