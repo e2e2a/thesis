@@ -11,9 +11,15 @@ const startServer = require('./database/UserCreated');
 const app = express();
 const conn = dbConnect();
 
+const store = new MongoDBSessionStore({
+    uri: process.env.MONGODB_URI, // Replace with your MongoDB connection URI
+    collection: 'sessions' // Collection name to store sessions
+});
 app.use(session({
-    secret: 'sessionsecret777', resave: false,
+    secret: 'sessionsecret777', 
+    resave: false,
     saveUninitialized: true,
+    store: store,
 }));
 app.use(bodyparser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
