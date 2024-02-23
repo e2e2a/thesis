@@ -71,7 +71,6 @@ module.exports.approve = async (req, res) => {
 
             if (allQuantitiesNonZero.every(quantity => quantity)) {
                 await Promise.all(requestForm.selectedVehicle.map(async (selectedVehicle) => {
-                    // Find and update the required number of vehicles of this type
                     const vehiclesToUpdate = await Vehicle.find({ type: selectedVehicle.vehicleId, qty: 0, status: 'process' }).limit(selectedVehicle.qty);
                     await Promise.all(vehiclesToUpdate.map(async (vehicle) => {
                         vehicle.status = 'deployed';
