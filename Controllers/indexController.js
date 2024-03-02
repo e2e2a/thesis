@@ -38,7 +38,15 @@ module.exports.index = async (req, res) => {
                     submissionCount: submissionCount,
                 })
             } else {
-                return res.render('404')
+                if (userLogin.role === 'member') {
+                    return res.redirect('/');
+                } else if (userLogin.role === 'admin') {
+                    return res.redirect('/admin');
+                } else if (userLogin.role === 'creator') {
+                    return res.redirect('/vehicles');
+                } else {
+                    console.log('Unknown role logged in');
+                }
             }
         } else {
             return res.redirect('/login')
@@ -82,7 +90,15 @@ module.exports.requests = async (req, res) => {
 
                 })
             } else {
-                return res.render('404')
+                if (userLogin.role === 'member') {
+                    return res.redirect('/');
+                } else if (userLogin.role === 'admin') {
+                    return res.redirect('/admin');
+                } else if (userLogin.role === 'creator') {
+                    return res.redirect('/vehicles');
+                } else {
+                    console.log('Unknown role logged in');
+                }
             }
         } else {
             return res.redirect('/login')

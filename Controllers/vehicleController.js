@@ -285,7 +285,15 @@ module.exports.vehicleUpdate = async (req, res) => {
                     currentUrl: req.originalUrl
                 })
             } else {
-                return res.status(404).render('404');
+                if (userLogin.role === 'member') {
+                    return res.redirect('/');
+                } else if (userLogin.role === 'admin') {
+                    return res.redirect('/admin');
+                } else if (userLogin.role === 'creator') {
+                    return res.redirect('/vehicles');
+                } else {
+                    console.log('Unknown role logged in');
+                }
             }
         } else {
             return res.redirect('/')

@@ -53,9 +53,9 @@ app.use(async(req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    res.status(404).render('404');
-});
+// app.use((req, res, next) => {
+//     res.status(404).render('404');
+// });
 const PORT = process.env.PORT
 app.listen(PORT, async () => {
     console.log("Server is running at port", PORT);
