@@ -13,7 +13,7 @@ const app = express();
 const conn = dbConnect();
 
 const store = new MongoDBSessionStore({
-    uri: process.env.MONGODB_CONNECT_URI,
+    uri: process.env.MONGODB_CONNECT_URI_KENLEY,
     collection: 'sessions'
 });
 app.use(session({
