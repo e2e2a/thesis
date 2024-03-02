@@ -141,7 +141,7 @@ module.exports.approve = async (req, res) => {
                 sendEmail(
                     `lguk-online.onrender.com <${user.email}>`,
                     //sending message in two emails
-                    `admin@gmail.com`,
+                    `reyarmecinkenley@gmail.com`,
                     'Request Form',
                     emailContent,
                     outputPath
