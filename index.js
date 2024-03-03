@@ -17,7 +17,7 @@ const store = new MongoDBSessionStore({
     collection: 'sessions'
 });
 app.use(session({
-    secret: 'sessionsecret777', 
+    secret: 'Reymond_Godoy_Secret7777', 
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
       },

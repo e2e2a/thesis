@@ -6,6 +6,7 @@ const creatorController = require('../Controllers/creatorController');
 const adminController = require('../Controllers/adminController');
 const profileController =require('../Controllers/profileController');
 const AllvehiclesController = require('../Controllers/AllvehiclesController');
+const verifyController = require('../Controllers/verifyController');
 module.exports = function(app){
 
     app.get('/', indexController.index);
@@ -42,6 +43,8 @@ module.exports = function(app){
     app.post('/deleteRequestForm', requestController.formDelete);
     app.post('/deleteForm', requestController.formDeleteMember);
     app.post('/print', AllvehiclesController.print)
+    app.get('/verify', verifyController.verify)
+    app.post('/verify', verifyController.doVerify)
     //Utilities
     // app.get('/alert', (req,res) => {
     //     res.render('alert')

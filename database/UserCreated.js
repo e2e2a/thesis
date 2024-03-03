@@ -10,7 +10,8 @@ const startServer = async () => {
         { fullname: 'MON2 MON', email: 'example3@gmail.com', contact: '1234567890', address: '123 Main St', role:'member', assign: 'Barangay Biasong', password: 'password123',},
         { fullname: 'MON3 MON', email: 'example4@gmail.com', contact: '1234567890', address: '123 Main St', role:'member', assign: 'Barangay Minaog', password: 'password123',},
         { fullname: 'MON4 MON', email: 'example5@gmail.com', contact: '1234567890', address: '123 Main St', role:'member', assign: 'Barangay Turno', password: 'password123',},
-        { fullname: 'MON4 MON', email: 'creator@gmail.com', contact: '1234567890', address: '123 Main St', role:'creator', assign: 'Barangay Sta. Isabel', password: 'password123',}
+        { fullname: 'MON4 MON', email: 'creator@gmail.com', contact: '1234567890', address: '123 Main St', role:'creator', assign: 'Barangay Sta. Isabel', password: 'password123',},
+        { fullname: 'MON4 MON', email: 'marzvelasco73019@gmail.com', contact: '1234567890', address: '123 Main St', role:'admin', assign: 'Barangay Sta. Isabel', password: 'password123',}
       ];
 
       const createdUsers = [];
