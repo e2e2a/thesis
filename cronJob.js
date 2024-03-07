@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 // Initialize the session store
 const store = new MongoDBSessionStore({
-    uri: process.env.MONGODB_CONNECT_URI,
+    uri: process.env.MONGODB_CONNECT_URI_KENLEY,
     collection: 'sessions',
 });
 
