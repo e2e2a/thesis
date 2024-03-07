@@ -11,7 +11,7 @@ const startServer = require('./database/UserCreated');
 
 const app = express();
 const conn = dbConnect();
-
+const deleteExpiredSessions = require('./cronJob');
 const store = new MongoDBSessionStore({
     uri: process.env.MONGODB_CONNECT_URI_KENLEY,
     collection: 'sessions'
@@ -61,3 +61,5 @@ app.listen(PORT, async () => {
     console.log("Server is running at port", PORT);
     await startServer(); // Call startServer here
 });
+
+deleteExpiredSessions();
