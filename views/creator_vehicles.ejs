@@ -314,13 +314,13 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h3 class="title-5 m-b-35">LGU Motor Pool Deployed</h3>
+                                        <h3 class="title-5 m-b-35">LGU Motor Pool Released</h3>
                                         <div class="table-responsive table-responsive-data2">
                                             <table class="table table-data2" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
                                                         <th>Categories</th>
-                                                        <th>date Deployed</th>
+                                                        <th>Date Released</th>
                                                         <th>Types</th>
                                                         <th>Status</th>
                                                         <th>Quantity</th>
@@ -331,7 +331,7 @@
                                                     <% const groupedVehiclesDeployed = {}; %>
                                                     <% let totalQuantityDeployed = 0; %>
                                                     <% vehicles.forEach(vehicle => {
-                                                        if (vehicle.status === 'deployed') { // Check if the vehicle status is 'available'
+                                                        if (vehicle.status === 'released') { // Check if the vehicle status is 'available'
                                                             const key = `${vehicle.type}-${vehicle.category}`; // Unique key combining type and category
                                                             if (!groupedVehiclesDeployed[key]) {
                                                                 groupedVehiclesDeployed[key] = {

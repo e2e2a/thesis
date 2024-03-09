@@ -81,7 +81,7 @@ module.exports.approve = async (req, res) => {
                 await Promise.all(requestForm.selectedVehicle.map(async (selectedVehicle) => {
                     const vehiclesToUpdate = await Vehicle.find({ type: selectedVehicle.vehicleId, qty: 0, status: 'process' }).limit(selectedVehicle.qty);
                     await Promise.all(vehiclesToUpdate.map(async (vehicle) => {
-                        vehicle.status = 'deployed';
+                        vehicle.status = 'released';
                         const currentDate = new Date();
                         const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
                         vehicle.dateDeployed = formattedDate;
