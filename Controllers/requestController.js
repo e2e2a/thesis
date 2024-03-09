@@ -93,6 +93,7 @@ module.exports.index = async (req, res) => {
         try {
             const browser = await puppeteer.launch({
                 ...puppeteerConfig,
+                //if trying to test delete args
                 args: [
                     "--disable-setuid-sandbox",
                     "--no-sandbox",

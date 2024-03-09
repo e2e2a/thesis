@@ -123,7 +123,7 @@
                                                 </div>
                                                 <input type="hidden" name="userId" value="<%= user._id %>">
                                                 <div class="form-actions form-group text-right">
-                                                    <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                                                    <button type="submit" class="btn btn-success btn-sm submit-button">Submit</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -140,9 +140,18 @@
         <% if (messages.message) { %>
             window.alert('<%= messages.message %>');
         <% } %>
-    </script>
+        </script>
      <!-- Jquery JS-->
      <script src="/public/vendor/jquery-3.2.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                    // Listen to the submit event of forms containing submit-button class
+                    $('.submit-button').closest('form').on('submit', function() {
+                        // Disable the submit button when the form is submitted
+                        $(this).find('.submit-button').prop('disabled', true);
+                    });
+                });
+            </script>
      <!-- Bootstrap JS-->
      <script src="public/vendor/bootstrap-4.1/popper.min.js"></script>
      <script src="/public/vendor/bootstrap-4.1/bootstrap.min.js"></script>

@@ -11,7 +11,7 @@ const store = new MongoDBSessionStore({
 
 // Cron job to delete expired sessions
 const deleteExpiredSessions = () => {
-    cron.schedule('* * * * *', async () => { // Runs every day at midnight
+    cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
         console.log('Cron Job has starting');
         try {
             const currentDate = new Date();
