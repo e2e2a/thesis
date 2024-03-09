@@ -381,13 +381,13 @@ module.exports.doEndContract = async (req,res) => {
         console.log(requestForm)
         // Check if all selected vehicles have non-zero quantities
         const allQuantitiesNonZero = await Promise.all(requestForm.selectedVehicle.map(async (selectedVehicle) => {
-            const vehicleCount = await Vehicle.countDocuments({ type: selectedVehicle.vehicleId, qty: 0, status: 'deployed' });
+            const vehicleCount = await Vehicle.countDocuments({ type: selectedVehicle.vehicleId, qty: 0, status: 'released' });
             return vehicleCount >= selectedVehicle.qty;
         }));
         // Check if all selected vehicles have non-zero quantities
         if (allQuantitiesNonZero.every(quantity => quantity)) {
             await Promise.all(requestForm.selectedVehicle.map(async (selectedVehicle) => {
-                const vehiclesToUpdate = await Vehicle.find({ type: selectedVehicle.vehicleId, qty: 0, status: 'deployed' }).limit(selectedVehicle.qty);
+                const vehiclesToUpdate = await Vehicle.find({ type: selectedVehicle.vehicleId, qty: 0, status: 'released' }).limit(selectedVehicle.qty);
                 await Promise.all(vehiclesToUpdate.map(async (vehicle) => {
                     vehicle.qty = 1;
                     vehicle.status = 'available';
