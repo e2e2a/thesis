@@ -74,51 +74,51 @@ module.exports.doVerify = async (req, res) => {
                         req.session.login = user._id;
                         await UserToken.findByIdAndDelete(userToken._id);
                         console.log('Email verification successful. Registration completed.');
-                        const transporter = nodemailer.createTransport({
-                            service: 'gmail',
-                            auth: {
-                                user: 'reyarmecinkenley@gmail.com',
-                                pass: 'kfhx jxvz tesd pfwj',
-                            },
-                        });
-                        const sendEmail = async (from, to, subject, htmlContent) => {
-                            try {
-                                const mailOptions = {
-                                    from,
-                                    to,
-                                    subject,
-                                    html: htmlContent,  // Set the HTML content
-                                };
-                                const info = await transporter.sendMail(mailOptions);
-                                console.log('Email sent:', info.response);
-                            } catch (error) {
-                                console.error('Error sending email:', error);
-                                throw new Error('Failed to send email');
-                            }
-                        };
-                        const emailContent = `
-                        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                            <div style="background-color: #f2f2f2; padding: 10px; width: 60%; text-align: justify;">
-                                <h2 style="color: #000;">Dear ${user.fullname},</h2>
-                                <p style="color: #000;">Congratulations! Your email address has been successfully verified. Welcome aboard!</p>
-                                <br/>
-                                <p style="color: #000;">You are now a part of our community, and we're thrilled to have you join us. Feel free to explore all the features and benefits our website has to offer.</p>
-                                <br/>
-                                <p style="color: #000;">Should you have any questions or need assistance, don't hesitate to reach out to our support team. We're here to help you make the most out of your experience.</p>
-                                <br/>
-                                <p style="color: #000;">Thank you for choosing our platform. We look forward to serving you and providing you with an exceptional user experience.</p>
-                                <br/>
-                                <p style="color: #000;">Best regards,</p>
-                                <a href="LGU-katipunan.onrender.com">LGU-katipunan.onrender.com</a>
-                            </div>
-                        </div>
-                        `;
-                        sendEmail(
-                            'LGU-katipunan.onrender.com <reyarmecinkenley@gmail.com>',
-                            user.email,
-                            'Verify your email',
-                            emailContent
-                        );
+                        // const transporter = nodemailer.createTransport({
+                        //     service: 'gmail',
+                        //     auth: {
+                        //         user: 'reyarmecinkenley@gmail.com',
+                        //         pass: 'kfhx jxvz tesd pfwj',
+                        //     },
+                        // });
+                        // const sendEmail = async (from, to, subject, htmlContent) => {
+                        //     try {
+                        //         const mailOptions = {
+                        //             from,
+                        //             to,
+                        //             subject,
+                        //             html: htmlContent,  // Set the HTML content
+                        //         };
+                        //         const info = await transporter.sendMail(mailOptions);
+                        //         console.log('Email sent:', info.response);
+                        //     } catch (error) {
+                        //         console.error('Error sending email:', error);
+                        //         throw new Error('Failed to send email');
+                        //     }
+                        // };
+                        // const emailContent = `
+                        // <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                        //     <div style="background-color: #f2f2f2; padding: 10px; width: 60%; text-align: justify;">
+                        //         <h2 style="color: #000;">Dear ${user.fullname},</h2>
+                        //         <p style="color: #000;">Congratulations! Your email address has been successfully verified. Welcome aboard!</p>
+                        //         <br/>
+                        //         <p style="color: #000;">You are now a part of our community, and we're thrilled to have you join us. Feel free to explore all the features and benefits our website has to offer.</p>
+                        //         <br/>
+                        //         <p style="color: #000;">Should you have any questions or need assistance, don't hesitate to reach out to our support team. We're here to help you make the most out of your experience.</p>
+                        //         <br/>
+                        //         <p style="color: #000;">Thank you for choosing our platform. We look forward to serving you and providing you with an exceptional user experience.</p>
+                        //         <br/>
+                        //         <p style="color: #000;">Best regards,</p>
+                        //         <a href="LGU-katipunan.onrender.com">LGU-katipunan.onrender.com</a>
+                        //     </div>
+                        // </div>
+                        // `;
+                        // sendEmail(
+                        //     'LGU-katipunan.onrender.com <reyarmecinkenley@gmail.com>',
+                        //     user.email,
+                        //     'Verify your email',
+                        //     emailContent
+                        // );
                         if (user.role === 'admin') {
                             return res.redirect(`/admin`);
                         } else if (user.role === 'creator') {

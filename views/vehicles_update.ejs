@@ -50,7 +50,7 @@
                                         <div class="card-header">
                                             <strong>Vehicle Update</strong>
                                         </div>
-                                        <form action="<%= vehicle._id %>" method="post">
+                                        <form action="<%= vehicle._id %>" method="post" enctype="multipart/form-data">
                                             <div class="card-body card-block">
                                                 <div class="form-group">
                                                     <label for="assignPersonel" class=" form-control-label">Assign Personel</label>
@@ -195,6 +195,10 @@
                                                             <option value="Van" <% if (vehicle.type == 'Van') { %> selected <% } %>>Van</option>
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="image" class=" form-control-label">Picture<small>(Optional)</small></label>
+                                                    <input type="file" id="image" name="image" placeholder="image" class="form-control" />
                                                 </div>
                                                 <div class="form-actions form-group text-right">
                                                     <button type="submit" class="submit-button btn btn-success btn-sm">Submit</button>

@@ -497,7 +497,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="createvehicle" method="post">
+                                                                <form action="createvehicle" method="post" enctype="multipart/form-data">
                                                                     <div class="row form-group">
                                                                         <div class="col col-md-3">
                                                                             <label for="assignPersonel" class=" form-control-label">Assign Personel</label>
@@ -667,6 +667,14 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="row form-group">
+                                                                        <div class="col col-md-3">
+                                                                            <label for="image" class=" form-control-label">Picture<small>(Optional)</small></label>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-9 justify-content-center align-items-center d-flex">
+                                                                        <input type="file" id="image" name="image" class="form-control-file">
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
                                                                         <button type="submit" class="btn btn-primary">Confirm</button>
@@ -681,6 +689,7 @@
                                                             <table id="vehicleTable" class="table table-data2 text-center" style="white-space: nowrap;">
                                                                 <thead>
                                                                     <tr>
+                                                                        <th>images</th>
                                                                         <th>Assign Personel</th>
                                                                         <th>brand</th>
                                                                         <th>category</th>

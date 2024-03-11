@@ -31,7 +31,6 @@ module.exports.userDoEdit = async (req, res) => {
         const userId = req.body.userId;
         console.log(req.session.login)
         const user = await User.findById(req.session.login);
-        console.log(user)
         var upload = multer({
             storage: fileUpload.files.storage(),
             allowedFile: fileUpload.files.allowedFile
@@ -39,18 +38,16 @@ module.exports.userDoEdit = async (req, res) => {
         upload(req, res, async function (err) {
             console.log('req.file', req.file);
             if (err instanceof multer.MulterError) {
-                // Sending the multer error to the client
                 return res
                     .status(err.status || 400)
                     .render('400', { err: err });
-            } else if (err) { // If there's another kind of error (not a MulterError), then handle it here
-                // Sending the generic error to the client
+            } else if (err) { 
                 console.log(err);
                 return res
                     .status(err.status || 500)
                     .render('500', { err: err });
-            } else { // If no errors occurred during the file upload, continue to the next step
-                let imageUrl = ''; // Default to an empty string
+            } else { 
+                let imageUrl = '';
                 if (user.imageURL) {
                     // If user.imageURL exists, use it
                     imageUrl = user.imageURL;
@@ -73,7 +70,7 @@ module.exports.userDoEdit = async (req, res) => {
                 if(updatedUser.role === 'member'){
                     if (updatedUser) {
                         console.log('user updated profile', user._id);
-                        req.flash('message', 'Profile update success!')
+                        req.flash('message', 'Profile update success!');
                         return res.redirect('/');
                     } else {
                         console.log('update failed');

@@ -1,4 +1,11 @@
 <tr class="tr-shadow">
+    <% if(vehicle.imageURL && vehicle.imageURL !== '') {%>
+    <td class="text-center justify-content-center align-items-center">
+        <img src="<%= vehicle.imageURL %>" alt="" style="width: 60px; height: 60px; border: 2px solid rgb(56, 56, 56); border-radius: 13px;">
+    </td>
+    <% }else{ %>
+        <td class="text-center">N/A</td>
+    <% } %>
     <td><%= vehicle.assignPersonel %></td>
     <td><%= vehicle.brand %></td>
     <td class="desc"><%= vehicle.category %></td>

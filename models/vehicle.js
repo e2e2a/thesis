@@ -51,6 +51,10 @@ var schema = mongoose.Schema({
         type: Number,
         required: true
     },
+    imageURL: {
+        type: String,
+        trim: false
+    },
     status: {
         type: String,
         required: true
