@@ -4661,7 +4661,7 @@ section {
 .status--available {
     color: #00ad5f;
 }
-.status--released {
+.status--dispatched {
     color: #fa4251;
 }
 
