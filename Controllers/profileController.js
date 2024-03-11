@@ -42,7 +42,6 @@ module.exports.userDoEdit = async (req, res) => {
                     .status(err.status || 400)
                     .render('400', { err: err });
             } else if (err) { 
-                console.log(err);
                 return res
                     .status(err.status || 500)
                     .render('500', { err: err });

@@ -13,9 +13,9 @@
     <td><%= vehicle.model %></td>
     <td><span class="status--<%= vehicle.status %>"><%= vehicle.status %></span></td>
     <td>
+        <% if(vehicle.status === 'available' || vehicle.status === 'not available'){ %>
         <form action="deleteVehicle" method="post">
             <div class="table-data-feature text-center justify-content-center">
-                <% if(vehicle.status === 'available' || vehicle.status === 'not available'){ %>
                 <input type="hidden" name="vehicleId" value="<%= vehicle._id %>">
                 <a href="/vehicle/<%= vehicle._id %>" class="item" data-toggle="tooltip"
                     data-placement="top" title="Edit">
@@ -27,9 +27,19 @@
                 </button>
             </div>
         </form>
-        <% } else if(vehicle.status === 'process'){ %>
+        <% } else if(vehicle.status === 'dispatched' && vehicle.manual === 'true') { %>
+            <form action="deleteVehicle" method="post">
+                <div class="table-data-feature text-center justify-content-center">
+                    <input type="hidden" name="vehicleId" value="<%= vehicle._id %>">
+                    <a href="/vehicle/<%= vehicle._id %>" class="item" data-toggle="tooltip"
+                        data-placement="top" title="Edit">
+                        <i class="zmdi zmdi-edit"></i>
+                    </a>
+                </div>
+            </form>
+        <% } else if(vehicle.status === 'process') { %>
             <p>Waiting For Approval</p>
-        <% } else if(vehicle.status === 'dispatched'){ %>
+        <% } else if(vehicle.status === 'dispatched' && vehicle.manual === 'false'){ %>
             <p>Waiting End Contract</p>
         <% } %>
     </td>

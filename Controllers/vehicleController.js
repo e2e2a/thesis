@@ -15,11 +15,10 @@ module.exports.doCreate = async (req, res) => {
                     .status(err.status || 500)
                     .render('500', { err: err });
             } else if (err) {
-                console.log('hello', err)
                 return res
                     .status(err.status || 500)
                     .render('500', { err: err });
-            } else { // If no errors occurred during the file upload, continue to the next step
+            } else {
                 try {
                     const userId = req.session.login;
                     const category = req.body.category;
@@ -41,7 +40,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'available'
+                                status: 'available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -83,7 +83,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'not available'
+                                status: 'not available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -129,7 +130,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'available'
+                                status: 'available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -171,7 +173,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'not available'
+                                status: 'not available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -216,7 +219,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'available'
+                                status: 'available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -258,7 +262,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'not available'
+                                status: 'not available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -303,7 +308,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'available'
+                                status: 'available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -345,7 +351,8 @@ module.exports.doCreate = async (req, res) => {
                                 type: type,
                                 category: category,
                                 qty: req.body.qty,
-                                status: 'not available'
+                                status: 'not available',
+                                manual: 'false'
                             });
                             let imageUrl = '';
                             if (req.file) {
@@ -450,6 +457,16 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                     const user = await User.findById(userId);
                     const currentDate = new Date();
                     const dateIssued = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
+                    let InputedStatus;
+                    let manual;
+                    if (req.body.status === 'dispatched') {
+                        InputedStatus = 'dispatched';
+                        manual = 'true';
+                    } else {
+                        InputedStatus = 'available';
+                        manual = 'false';
+                    }
+                    console.log('manual', manual ,'InputedStatus', InputedStatus)
                     if (category === 'Motorcycle Vehicles') {
                         const type = req.body.typeMotor;
                         if (req.body.condition === 'Serviceable') {
@@ -463,7 +480,8 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                                 condition: req.body.condition,
                                 type: type,
                                 category: category,
-                                status: 'available'
+                                status: InputedStatus,
+                                manual: manual,
                             };
                             if (req.file) {
                                 const vehicleNameExist = await Vehicle.find({ imageURL: `/public/upload/vehicles/${req.file.filename}` });
@@ -544,7 +562,8 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                                 condition: req.body.condition,
                                 type: type,
                                 category: category,
-                                status: 'available'
+                                status: InputedStatus,
+                                manual: manual,
                             };
                             if (req.file) {
                                 const vehicleNameExist = await Vehicle.find({ imageURL: `/public/upload/vehicles/${req.file.filename}` });
@@ -625,7 +644,8 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                                 condition: req.body.condition,
                                 type: type,
                                 category: category,
-                                status: 'available'
+                                status: InputedStatus,
+                                manual: manual,
                             };
                             if (req.file) {
                                 const vehicleNameExist = await Vehicle.find({ imageURL: `/public/upload/vehicles/${req.file.filename}` });
@@ -706,7 +726,8 @@ module.exports.vehicleDoUpdate = async (req, res) => {
                                 condition: req.body.condition,
                                 type: type,
                                 category: category,
-                                status: 'available'
+                                status: InputedStatus,
+                                manual: manual,
                             };
                             if (req.file) {
                                 const vehicleNameExist = await Vehicle.find({ imageURL: `/public/upload/vehicles/${req.file.filename}` });

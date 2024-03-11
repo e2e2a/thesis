@@ -59,6 +59,9 @@ var schema = mongoose.Schema({
         type: String,
         required: true
     },
+    manual: {
+        type: String,
+    },
     
 }, {
     versionKey: false,

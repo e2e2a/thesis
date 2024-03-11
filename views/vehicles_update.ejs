@@ -77,9 +77,20 @@
                                                         <label for="condition" class=" form-control-label">Condition</label>
                                                     </div>
                                                     <div class="col-12 col-md-9">
-                                                        <select name="condition" id="condition" class="form-control" required>
+                                                        <select name="condition" id="condition" class="form-control" onchange="showOption()" required>
                                                             <option value="Serviceable" <% if (vehicle.condition == 'Serviceable') { %> selected <% } %>>Serviceable</option>
                                                             <option value="Non Serviceable" <% if (vehicle.condition == 'Non Serviceable') { %> selected <% } %>>Non Serviceable</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div id="StatusTypes" class="row form-group">
+                                                    <div class="col col-md-3">
+                                                        <label for="status" class=" form-control-label">Status</label>
+                                                    </div>
+                                                    <div class="col-12 col-md-9">
+                                                        <select name="status" id="status" class="form-control" required>
+                                                            <option value="available" <% if (vehicle.status == 'available') { %> selected <% } %>>available</option>
+                                                            <option value="dispatched" <% if (vehicle.status == 'dispatched') { %> selected <% } %>>dispatched </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -218,8 +229,21 @@
         <% if (messages.message) { %>
             window.alert('<%= messages.message %>');
         <% } %>
-        
-        function showTypesEdit() {
+    function showOption() {
+        const condition = document.getElementById("condition").value;
+        const StatusTypes = document.getElementById("StatusTypes");
+        StatusTypes.style.display = "none";
+        if (condition === "Serviceable") {
+            StatusTypes.style.display = "flex";
+            document.getElementById("status").setAttribute("status", "true");
+        } else {
+            document.getElementById("status").removeAttribute("status");
+        }
+        if (condition === "Non Serviceable") {
+            StatusTypes.style.display = "none";
+        } 
+    }    
+    function showTypesEdit() {
     const category = document.getElementById("category").value;
     //options
     const motorcycleTypes = document.getElementById("MotorcycleTypes");
