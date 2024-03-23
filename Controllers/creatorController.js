@@ -374,7 +374,6 @@ module.exports.doEndContract = async (req,res) => {
             );
             req.flash('message', 'Email Send!')
             return res.redirect('/vehicles')
-        
         } else if (actions === 'endContract'){
             const requestForm = await requestedForm.findById(formId);
         console.log(requestForm)
