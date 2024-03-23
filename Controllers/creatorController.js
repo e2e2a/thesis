@@ -362,8 +362,8 @@ module.exports.doEndContract = async (req,res) => {
             const emailContent = `
                 <div style="font-family: Arial, sans-serif; padding: 20px;">
                     <h1 style="color: #000;">Hello ${user.fullname}</h1>
-                    <p style="color: ##FF7F7F;">This is a warning</p>
-                    <p style="color: #000;">Please check your Request Form <a href="/requests" ></a></p>
+                    <p style="color: ##FF7F7F;">Warning Please Return Vehicle</p>
+                    <p style="color: #000;">Please come to LGU-Katipunan MotorPool for End Contract <a href="/requests" ></a></p>
                 </div>
             `;
             sendEmail(
