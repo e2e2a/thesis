@@ -339,8 +339,8 @@ module.exports.doEndContract = async (req,res) => {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'emonawong22@gmail.com',
-                    pass: 'nouv heik zbln qkhf',
+                    user: 'reyarmecinkenley@gmail.com',
+                    pass: 'kfhx jxvz tesd pfwj',
                 },
             });
             const sendEmail = async (from, to, subject, htmlContent) => {
@@ -362,7 +362,6 @@ module.exports.doEndContract = async (req,res) => {
             const emailContent = `
                 <div style="font-family: Arial, sans-serif; padding: 20px;">
                     <h1 style="color: #000;">Hello ${user.fullname}</h1>
-                    <p style="color: #000;">From: <strong>Reymond R. Godoy</strong></p>
                     <p style="color: ##FF7F7F;">This is a warning</p>
                     <p style="color: #000;">Please check your Request Form <a href="/requests" ></a></p>
                 </div>
