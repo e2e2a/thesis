@@ -114,10 +114,10 @@ module.exports.index = async (req, res) => {
                         ...puppeteerConfig,
                         //if trying to test delete args
                         args: [
-                            // "--disable-setuid-sandbox",
-                            // "--no-sandbox",
-                            // "--single-process",
-                            // "--no-zygote",
+                            "--disable-setuid-sandbox",
+                            "--no-sandbox",
+                            "--single-process",
+                            "--no-zygote",
                         ],
                         headless: true
                     });
