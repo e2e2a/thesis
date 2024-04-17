@@ -9,7 +9,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body m-5" >
-                                        <form action="submit" method="post">
+                                        <form action="submit" method="post" enctype="multipart/form-data">
                                             <div class="text-justify">
                                                 <p style="font-weight: bold;">Date:</p>
                                                 <br/>
@@ -61,7 +61,9 @@
                                                     <br/>
                                                         <h3>No Vehicles Available</h3>
                                                     <% } %>
-                                                
+                                                <br/> <br/> <br/>
+                                                <label for="image" class=" form-control-label">Profile Picture<small>(Optional)</small></label>
+                                                <input type="file" id="image" name="image" class="form-control-file">
                                                 <br/> <br/> <br/>
                                                 Sincerely Yours, <br/>
                                                 <input type="text" name="requestorName" id="requestorName" placeholder="(Requestor Name)" class="border-bottom text-left" style="font-weight: 300; background-color: none; width: 18rem;" required/> 

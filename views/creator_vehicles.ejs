@@ -378,8 +378,8 @@
                                         </form>
                                         <% if(vehicles && vehicles.length > 0) { %>
                                             <div class="table-responsive table-responsive-data2">
-                                                <table id="vehicleTable" class="table table-data2 text-center" style="white-space: nowrap;">
-                                                    <thead>
+                                                <table id="vehicleTable" class="table table-data2 text-center">
+                                                    <thead  style="white-space: nowrap;">
                                                         <tr>
                                                             <th>Assign Personel</th>
                                                             <th>Date Issued</th>
@@ -392,7 +392,7 @@
                                                             <th>Condition</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody >
                                                         <% vehicles.forEach(vehicle=> { %>
                                                             <%- include('./partials/vehicle/creator_all_vehicle.ejs', {vehicle: vehicle}); %>
                                                         <% }); %>

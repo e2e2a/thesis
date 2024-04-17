@@ -15,6 +15,7 @@ module.exports.doCreate = async (req, res) => {
                     .status(err.status || 500)
                     .render('500', { err: err });
             } else if (err) {
+                console.log(err)
                 return res
                     .status(err.status || 500)
                     .render('500', { err: err });

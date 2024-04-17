@@ -12,10 +12,10 @@ const startServer = require('./database/UserCreated');
 const app = express();
 const conn = dbConnect();
 const deleteExpiredSessions = require('./cronJob');
-const store = new MongoDBSessionStore({
-    uri: process.env.MONGODB_CONNECT_URI_KENLEY,
-    collection: 'sessions'
-});
+// const store = new MongoDBSessionStore({
+//     uri: process.env.MONGODB_CONNECT_URI_KENLEY,
+//     collection: 'sessions'
+// });
 app.use(session({
     secret: 'Reymond_Godoy_Secret7777', 
     cookie: {
@@ -23,7 +23,7 @@ app.use(session({
       },
     resave: false,
     saveUninitialized: true,
-    store: store,
+    // store: store,
 }));
 app.use(bodyparser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -59,7 +59,7 @@ app.use(async(req, res, next) => {
 const PORT = process.env.PORT
 app.listen(PORT, async () => {
     console.log("Server is running at port", PORT);
-    await startServer(); // Call startServer here
+    // await startServer(); // Call startServer here
 });
 
-deleteExpiredSessions();
+// deleteExpiredSessions();

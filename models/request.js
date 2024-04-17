@@ -37,6 +37,9 @@ var schema = mongoose.Schema({
         vehicleId: String,
         qty: Number,
     }],
+    requestorImage: {
+        type: String,
+    }, 
     status: {
         type: String,
         required:true

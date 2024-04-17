@@ -39,8 +39,9 @@ if (isNaN(month)) {
         const page = await browser.newPage();
         await page.setContent(html);
         const pdfBuffer = await page.pdf({
-            format: 'A4',
+            format: 'Legal',
             printBackground: true,
+            landscape: true
         });
 
         // Set response headers to indicate PDF content
@@ -85,8 +86,9 @@ if (isNaN(month)) {
             const page = await browser.newPage();
             await page.setContent(html);
             const pdfBuffer = await page.pdf({
-                format: 'A4',
+                format: 'Legal',
                 printBackground: true,
+                landscape: true
             });
     
             // Set response headers to indicate PDF content
