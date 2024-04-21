@@ -24,6 +24,7 @@
     <td>
         <span class="block-email"><%= user.email %></span>
     </td>
+    <td><%= reqForm.days %></td>
     <td><%= reqForm.dateCreated %></td>
     <% if(reqForm.status === 'approved' || reqForm.status === 'settled') { %>
     <td><button type="button" data-toggle="modal" data-target="#<%= reqForm._id %>" style="color: dodgerblue;">View PDF</button></td>

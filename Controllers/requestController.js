@@ -83,6 +83,7 @@ module.exports.index = async (req, res) => {
                     event: req.body.event,
                     dateCreated: formattedDate,
                     requestorName: req.body.requestorName,
+                    days: req.body.days,
                     requestorImage: requestorImage,
                     status: 'pending',
                 });
@@ -113,12 +114,12 @@ module.exports.index = async (req, res) => {
                     const browser = await puppeteer.launch({
                         ...puppeteerConfig,
                         //if trying to test delete args
-                        args: [
-                            "--disable-setuid-sandbox",
-                            "--no-sandbox",
-                            "--single-process",
-                            "--no-zygote",
-                        ],
+                        // args: [
+                        //     "--disable-setuid-sandbox",
+                        //     "--no-sandbox",
+                        //     "--single-process",
+                        //     "--no-zygote",
+                        // ],
                         headless: true
                     });
 

@@ -90,7 +90,9 @@ module.exports.approve = async (req, res) => {
                 }));
                 const currentDate = new Date();
                 const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
-                await requestedForm.findByIdAndUpdate(formId, { status: 'approved', dateApproved: formattedDate });
+                const formattedDate2 = new Date(currentDate.getTime() + (requestForm.days * 24 * 60 * 60 * 1000));
+                const formattedDateString = `${formattedDate2.getMonth() + 1}-${formattedDate2.getDate()}-${formattedDate2.getFullYear()}`;
+                await requestedForm.findByIdAndUpdate(formId, { status: 'approved', dateApproved: formattedDate , dateReturn:formattedDateString});
                 req.flash('message', 'Approved');
                 const user = await User.findById(req.session.login);
                 const requestUser = await User.findById(requestForm.userId)
@@ -103,8 +105,8 @@ module.exports.approve = async (req, res) => {
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'emonawong22@gmail.com',
-                        pass: 'nouv heik zbln qkhf',
+                        user: 'reyarmecinkenley@gmail.com',
+                        pass: 'kfhx jxvz tesd pfwj',
                     },
                 });
 

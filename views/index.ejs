@@ -113,7 +113,7 @@
                                                 </div>
                                                 <% if(reqForms && reqForms.some(reqForm => ['pending', 'process'].includes(reqForm.status))) { %>
                                                 
-                                                <div class="table-responsive table-responsive-data2">
+                                                <div class="table-responsive">
                                                     <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                         <thead>
                                                             <tr>
@@ -121,6 +121,7 @@
                                                                 <th>assign name</th>
                                                                 <th>Requestor Image</th>
                                                                 <th>email</th>
+                                                                <th>days</th>
                                                                 <th>date</th>
                                                                 <th>status</th>
                                                                 <th>requestor</th>
@@ -183,7 +184,7 @@
                                                             </div>
                                                         </div>
                                                         <% if(vehicle && vehicle.length> 0) { %>
-                                                            <div class="table-responsive table-responsive-data2">
+                                                            <div class="table-responsive">
                                                                 <table id="vehicleTableMember" class="table table-data2 text-center" style="white-space: nowrap;">
                                                                     <thead>
                                                                         <tr>

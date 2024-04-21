@@ -62,8 +62,16 @@
                                                         <h3>No Vehicles Available</h3>
                                                     <% } %>
                                                 <br/> <br/> <br/>
-                                                <label for="image" class=" form-control-label">Profile Picture<small>(Optional)</small></label>
-                                                <input type="file" id="image" name="image" class="form-control-file">
+                                                <label for="days" class="form-control-label">Select Days</label>
+                                                <select name="days" id="" style="display: flex;" required>
+                                                    <option value="" selected hidden>Select Days</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                                <br/> <br/> <br/>
+                                                <label for="image" class=" form-control-label">Profile Picture</label>
+                                                <input type="file" id="image" name="image" class="form-control-file" required>
                                                 <br/> <br/> <br/>
                                                 Sincerely Yours, <br/>
                                                 <input type="text" name="requestorName" id="requestorName" placeholder="(Requestor Name)" class="border-bottom text-left" style="font-weight: 300; background-color: none; width: 18rem;" required/> 

@@ -37,7 +37,13 @@ var schema = mongoose.Schema({
         vehicleId: String,
         qty: Number,
     }],
+    days: {
+        type: String,
+    }, 
     requestorImage: {
+        type: String,
+    }, 
+    dateReturn: {
         type: String,
     }, 
     status: {

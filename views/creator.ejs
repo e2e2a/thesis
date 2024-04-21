@@ -106,7 +106,7 @@
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Approved Forms</h3>
                                         
-                                        <div class="table-responsive table-responsive-data2">
+                                        <div class="table-responsive">
                                             <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
@@ -114,7 +114,9 @@
                                                         <th>assign Name</th>
                                                         <th>Requestor Image</th>
                                                         <th>email</th>
+                                                        <th>days</th>
                                                         <th>Date Approved</th>
+                                                        <th>Date to return</th>
                                                         <th>form</th>
                                                         <th>status</th>
                                                         <th>requestor</th>
@@ -176,7 +178,7 @@
                                                         <i class="zmdi zmdi-filter-list"></i>filters</button>
                                                 </div>
                                             </div>
-                                            <div class="table-responsive table-responsive-data2">
+                                            <div class="table-responsive">
                                                 <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                     <thead>
                                                         <tr>
@@ -184,6 +186,7 @@
                                                             <th>assign Name</th>
                                                             <th>Requestor Image</th>
                                                             <th>email</th>
+                                                            <th>days</th>
                                                             <th>form</th>
                                                             <th>status</th>
                                                             <th>requestor</th>
@@ -222,7 +225,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="title-5 m-b-35">Request Process</h3>
-                                        <div class="table-responsive table-responsive-data2">
+                                        <div class="table-responsive">
                                             <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
@@ -230,6 +233,7 @@
                                                         <th>assign Name</th>
                                                         <th>Requestor Image</th>
                                                         <th>email</th>
+                                                        <th>days</th>
                                                         <th>date</th>
                                                         <th>form</th>
                                                         <th>status</th>
@@ -293,13 +297,15 @@
                                             </div>
                                         </div> -->
                                         <% if (reqForms && reqForms.length > 0 && reqForms.some(reqForm => reqForm.status === 'pending')) { %>
-                                        <div class="table-responsive table-responsive-data2">
+                                        <div class="table-responsive">
                                             <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                 <thead>
                                                     <tr>
                                                         <th>Requested By</th>
                                                         <th>assign</th>
+                                                        <th>REQUESTOR IMAGE</th>
                                                         <th>email</th>
+                                                        <th>days</th>
                                                         <th>date</th>
                                                         <th>form</th>
                                                         <th>status</th>
@@ -343,7 +349,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h3 class="title-5 m-b-35">Settled Forms</h3>
-                                            <div class="table-responsive table-responsive-data2">
+                                            <div class="table-responsive">
                                                 <table class="table table-data2 text-center" style="white-space: nowrap;">
                                                     <thead>
                                                         <tr>
@@ -351,6 +357,7 @@
                                                             <th>assign Name</th>
                                                             <th>Requestor Image</th>
                                                             <th>email</th>
+                                                            <th>days</th>
                                                             <th>form</th>
                                                             <th>status</th>
                                                             <th>requestor</th>
@@ -624,7 +631,7 @@
                                                     </div>
                                                     </div>
                                                     <% if(vehicles && vehicles.length > 0) { %>
-                                                        <div class="table-responsive table-responsive-data2">
+                                                        <div class="table-responsive">
                                                             <table id="vehicleTable" class="table table-data2 text-center" style="white-space: nowrap;">
                                                                 <thead>
                                                                     <tr>
