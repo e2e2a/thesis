@@ -37,7 +37,7 @@ module.exports.index = async (req, res) => {
                 const submissionCount = await reqForm.countDocuments({ dateCreated: formattedDate });
 
                 // Check if the submission count exceeds the limit
-                const submissionLimit = 10;
+                const submissionLimit = 20;
                 if (submissionCount >= submissionLimit) {
                     const user = await User.findById(req.session.login);
                     if (user.role === 'admin') {
